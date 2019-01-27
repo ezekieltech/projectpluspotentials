@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Project Plus Potentials Home</h1>
+
+  <p>Welcome to <em>Project Plus Potentials</em>,
+      a very basic Django website developed as a simple temporary setup.
+  </p>
+
+<h2>Dynamic content</h2>
+
+  <p>The Website has the following record counts:</p>
+  <ul>
+    <li><strong>Projects:</strong> {{ projects }}</li>
+    <li><strong>Press:</strong> {{ press }}</li>
+  </ul>
+
+{% endblock %}
