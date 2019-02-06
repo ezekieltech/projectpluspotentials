@@ -1,0 +1,140 @@
+{% extends "base_generic.html" %}
+
+{% load static%}
+
+{% block content %}
+<div style="background-color:#ededed;">
+    <div></div>
+    <div class="project-image" style=
+    "background-image:url({%static '/img/home/Home slide.jpg'%});
+    margin-top:5em;
+    height:480px;
+    text-align:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    align-content:center;
+    ">
+        <div class="text-box">
+            <h1 class="bottom-left" style="font-size: 8vw; margin: 0 0.3em">
+                Heading Headin Heading Heading
+            </h1>
+        </div>
+    </div>
+    <div class="breadcrum">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a><span>Home</span></a></li>
+            <li class="breadcrumb-item"><a><span>Library</span></a></li>
+            <li class="breadcrumb-item"><a><span>Data</span></a></li>
+        </ol>
+    </div>
+    <div class="home-service-row" style="background-color:#ffffff;">
+        <div class="container service-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>About Us</h2>
+                </div>
+            </div>
+            <div class="row">
+
+                    <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
+                        <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                    </ol>
+
+                <div class="col-md-10 service-images">
+                    Project Plus Potentials is an engineering consultancy firm in Nigeria whose vision is to produce independent and high-class engineers in our field of engineering and also provide world-class engineering services in our core area of service.
+                        We engage qualified engineers as staff and also partner with other professionals in the execution of projects. <br> <br>To provide quality service, we work with all relevant codes of practice and run a completely computerised
+                        outfit equipped with state of the art software and a well-furnished library. We also have links with institutions locally and overseas via the internet for technical support.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="projects-horizontal">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Our Leadership</h2>
+                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+            </div>
+            <div class="row projects">
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="desk.jpg" /></a></div>
+                        <div class="col">
+                            <h3 class="name">Project Name</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="building.jpg" /></a></div>
+                        <div class="col">
+                            <h3 class="name">Project Name</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="loft.jpg" /></a></div>
+                        <div class="col">
+                            <h3 class="name">Project Name</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 item">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="minibus.jpeg" /></a></div>
+                        <div class="col">
+                            <h3 class="name">Project Name</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-service-row" style="background-color:#ffffff;">
+        <div class="container service-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Services</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works. <br> <br>Over the
+                        years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere. <br> <br>Through its productive journey of eight years, the company has relentlessly grown to be committed
+                        to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs</p>
+                </div>
+                <div class="col-md-6 service-images">
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({%static '/img/home page services.jpg' %});">
+                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                        </div>
+                    </a>
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home services.jpg'%});">
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Building Construction</p>
+                        </div>
+                    </a>
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
+                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                        </div>
+                    </a>
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home/hp-recent-graduates-img home.jpg' %});">
+                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
