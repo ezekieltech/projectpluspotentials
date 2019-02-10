@@ -17,17 +17,22 @@ def index(request):
     View function for home page of site.
     """
     # Generate counts of some of the main objects
-    projects = Project.objects.all().count()
+    projects = Project.objects.all()
+    projects = projects[0:3]
     press = Press.objects.all().count()
     # Available books (status = 'a')
     # num_instances_available=BookInstance.objects.filter(status__exact='a').count()
     # num_authors=Author.objects.count()  # The 'all()' is implied by default.
 
     # Render the HTML template index.html with the data in the context variable
+
+    all_services = Service.objects.all()
+    services = all_services[0:3]
+
     return render(
         request,
         'index.html',
-        context={'projects': projects, 'press': press})
+        context={'projects': projects, 'press': press, 'services': services})
 
 
 class ProjectListView(generic.ListView):
@@ -56,6 +61,12 @@ class StaffListView(generic.ListView):
     model = Staff
     paginate_by = 10
     #template_name = 'list_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(StaffListView, self).get_context_data(**kwargs)
+        all_services = Service.objects.all()
+        context['services'] = all_services[0:3]
+        return context
 
 
 class StaffDetailView(generic.DetailView):

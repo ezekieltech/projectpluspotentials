@@ -6,7 +6,7 @@
 <div style="background-color:#ededed;">
     <div></div>
     <div class="project-image" style=
-    "background-image:url({%static '/img/home/Home slide.jpg'%});
+    "background-image:url({%static '/img/IKOYI-3.jpg'%});
     margin-top:5em;
     height:480px;
     text-align:center;
@@ -14,9 +14,9 @@
     background-repeat:no-repeat;
     align-content:center;
     ">
-        <div class="text-box">
-            <h1 class="bottom-left" style="font-size: 8vw; margin: 0 0.3em">
-                Heading Headin Heading Heading
+        <div class="text-box" >
+            <h1 class="bottom-left">
+                About Us
             </h1>
         </div>
     </div>
@@ -30,22 +30,39 @@
     <div class="home-service-row" style="background-color:#ffffff;">
         <div class="container service-container">
             <div class="row">
-                <div class="col-md-12">
-                    <h2>About Us</h2>
-                </div>
-            </div>
-            <div class="row">
 
-                    <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-                        <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
-                    </ol>
+                <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
+
+                </ol>
 
                 <div class="col-md-10 service-images">
-                    Project Plus Potentials is an engineering consultancy firm in Nigeria whose vision is to produce independent and high-class engineers in our field of engineering and also provide world-class engineering services in our core area of service.
-                        We engage qualified engineers as staff and also partner with other professionals in the execution of projects. <br> <br>To provide quality service, we work with all relevant codes of practice and run a completely computerised
-                        outfit equipped with state of the art software and a well-furnished library. We also have links with institutions locally and overseas via the internet for technical support.</p>
+                    <h2 class="text-center"><strong>About Us</strong></h2>
+                    <p>
+                        Project Plus Poteials is an engineering consultancy firm in
+                        Nigeria established in February 2003 and registered with the
+                        corporate affairs commission in Nigeria. We were fully registered
+                        as an Engineering consulting firm by the Council for the
+                        Regulation of Engineering in Nigeria (COREN) in the
+                        November 2005 with registeration no EF00355. Though we are
+                        relatively young, we have had over 16 yearâ€™s cognate
+                        working experience.
+
+                        Project PLus Engineers was established to provide
+                        quality-engineering services as follows
+
+                                Engineering Consultancy services
+                                Civil/Structure Engineering
+                                Building Services
+                                Oil and Gas installation Designs
+                                Project/construction management
+                                Training of CAD Software
+                                Engineering procurement
+                    </p>
 
                 </div>
             </div>
@@ -54,46 +71,36 @@
     <div class="projects-horizontal">
         <div class="container">
             <div class="intro">
-                <h2 class="text-center">Our Leadership</h2>
-                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+                <h2 class="text-center" id='team'>Our Leadership</h2>
+                <p class="text-center">
+                    We've build a reputable team that serves the nigerian market.
+                    Our team covers key quality members that are great at what they do
+                </p>
             </div>
             <div class="row projects">
+                {% for staff in staff_list %}
                 <div class="col-sm-6 item">
                     <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="desk.jpg" /></a></div>
+                        <div class="col-md-12 col-lg-5" data-bs-hover-animate="pulse">
+                            <a href="{{staff.get_absolute_url}}">
+                                <img class="img-fluid" src="{{staff.staff_passport.url}}" />
+                            </a>
+                        </div>
                         <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                            <a href="{{staff.get_absolute_url}}" style="color:#000">
+                                <h3 class="name" data-bs-hover-animate="pulse">
+                                    {{staff.name}}
+                                </h3>
+                            </a>
+
+                            <p class="description">
+                                {{staff.position}}<br />
+                                {{staff.qualification}}
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="building.jpg" /></a></div>
-                        <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="loft.jpg" /></a></div>
-                        <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="minibus.jpeg" /></a></div>
-                        <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -101,7 +108,7 @@
         <div class="container service-container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Services</h2>
+                    <h2><strong>Services</strong></h2>
                 </div>
             </div>
             <div class="row">
@@ -111,26 +118,16 @@
                         to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs</p>
                 </div>
                 <div class="col-md-6 service-images">
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({%static '/img/home page services.jpg' %});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                    {% for service in services %}
+                    <a href="{{service.get_absolute_url}}" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({{service.service_image1.url}});">
+                            <p style="color:rgb(141,198,255); background-color: rgba(137,146,231,0.6);">
+                                <strong>{{service.service_title}}</strong>
+                            </p>
                         </div>
                     </a>
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home services.jpg'%});">
-                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Building Construction</p>
-                        </div>
-                    </a>
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
-                        </div>
-                    </a>
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home/hp-recent-graduates-img home.jpg' %});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
-                        </div>
-                    </a>
+                    {% endfor %}
+
                 </div>
             </div>
         </div>

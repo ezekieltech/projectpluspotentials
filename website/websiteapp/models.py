@@ -1,6 +1,14 @@
 from django.db import models
 from django.urls import reverse
 
+from PIL import Image
+from .utilities import rescale_image
+from django.core.files.uploadedfile import SimpleUploadedFile
+
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
+
 # Create your models here.
 
 
@@ -17,6 +25,20 @@ class Project(models.Model):
         max_length=1000, help_text="Enter a brief description of the project")
     project_article = models.TextField(max_length=1000, help_text="Enter prject article")
     project_date = models.DateField(null=True, blank=True)
+    project_image1 = models.ImageField(
+        upload_to='projectimages/', default='projectimages/None/no-img.jpg')
+    project_image2 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
+    project_image3 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
+    project_image4 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
+    project_image5 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
+    project_image6 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
+    project_image7 = models.ImageField(
+        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
 
     SERVICE = (
         ('con', 'construction'),
@@ -44,11 +66,30 @@ class Project(models.Model):
         """
         return self.title
 
+    class Meta:
+        ordering = ["project_date"]
+
     def get_absolute_url(self):
         """
         Returns the url to access a particular project instance.
         """
         return reverse('project-detail', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        project_images_to_resize = [
+            self.project_image1,
+            self.project_image2,
+            self.project_image3,
+            self.project_image4,
+            self.project_image5,
+            self.project_image6,
+            self.project_image7
+        ]
+        for project_img in project_images_to_resize:
+            if project_img:
+                image = project_img
+                self.project_img = rescale_image(self, image)
+        super(Project, self).save(*args, **kwargs)
 
 
 class Service(models.Model):
@@ -59,12 +100,16 @@ class Service(models.Model):
     # Fields
     service_title = models.CharField(max_length=20, help_text="Title of service")
     service_article = models.TextField(max_length=1000, help_text='Enter article here')
-    service_slogan = models.CharField(max_length=100, help_text="Slogan for service")
+    service_summary = models.CharField(max_length=200, help_text="Summary for service")
+    service_date = models.DateField(null=True, blank=True)
+    service_image1 = models.ImageField(
+        upload_to='serviceimages/',
+        default='serviceimages/None/no-img.jpg')
 
     # Metadata
 
     class Meta:
-        ordering = ["-service_title"]
+        ordering = ["service_title"]
 
     # Methods
     def get_absolute_url(self):
@@ -79,6 +124,12 @@ class Service(models.Model):
         """
         return self.service_title
 
+    def save(self, *args, **kwargs):
+        if self.service_image1:
+            image = self.service_image1
+            service_image1 = rescale_image(self, image)
+        super(Service, self).save(*args, **kwargs)
+
 
 class Staff(models.Model):
     """
@@ -86,23 +137,25 @@ class Staff(models.Model):
     """
 
     # Fields
-    name = models.CharField(max_length=20, help_text="Name of staff")
-    position = models.CharField(max_length=20, help_text="Name of Job Position")
-    qualification = models.CharField(max_length=20, help_text="Enter Job Qualification")
+    name = models.CharField(max_length=100, help_text="Name of staff")
+    position = models.CharField(max_length=100, help_text="Name of Job Position")
+    order_of_appearance_on_website = models.IntegerField(max_length=2)
+    qualification = models.CharField(max_length=100, help_text="Enter Job Qualification")
     cv = models.TextField(max_length=1000, help_text='Enter article here')
-    #service_slogan = models.CharField(max_length=20, help_text="Slogan for service")
+    staff_passport = models.ImageField(
+        upload_to='staffimages/', default='staffimages/None/no-img.jpg')
 
     # Metadata
 
     class Meta:
-        ordering = ["-name"]
+        ordering = ["order_of_appearance_on_website"]
 
     # Methods
     def get_absolute_url(self):
         """
         Returns the url to access a particular instance of staff profile.
         """
-        return reverse('profile-detail', args=[str(self.id)])
+        return reverse('staff-detail', args=[str(self.id)])
 
     def __str__(self):
         """

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -27,14 +28,14 @@
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'about-us' %}"><strong>About Us</strong></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'projects' %}"><strong>Projects</strong></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'services' %}"><strong>Our Services</strong></a></li>
-                    <li class="nav-item" role="presentation"><strong>Contact us: 07083049565; <br />info@projectpluspotentials.com</strong></li>
+                    <li class="nav-item" role="presentation"><small><strong>Contact us: 08071809226; <br />info@projectpluspotentials.com</strong></small></li>
                 </ul>
         </div>
         </div>
     </nav>
     {% block content %} {% endblock %}
 
-    <div class="contact-clean">
+    <div class="contact-clean" id='contact'>
         <form action= "{% url 'email' %}" method="post">
             {% csrf_token %}
             <h2 class="text-center">Contact us</h2>
@@ -73,40 +74,52 @@
                             <li><a href="#">Engineering Consultancy Services</a></li>
                             <li><a href="#">Civil Structure Engineering</a></li>
                             <li><a href="#">Building Services</a></li>
-                            <li>Oil and Gas Installation</li>
-                            <li>Project/ Construction Management</li>
-                            <li>Training of CAD Users</li>
-                            <li>Engineering Procurement</li>
+                            <li><a href="#">Oil and Gas Installation</a></li>
+                            <li><a href="#">Project/ Construction Management</a></li>
+                            <li><a href="#">Training of CAD Users</a></li>
+                            <li><a href="#">Engineering Procurement</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-4 col-md-3 item">
                         <h3>Corporate Address</h3>
                         <ul>
-                            <li><a href="#">9, Bakare Street, Off Oriola, Ketu, Lagos</a></li>
-                            <li><a href="#">Tel: 08071809226, 08071890230</a></li>
-                            <li><a href="#">Email: projectpluspotentials@gmail.com</a></li>
+                            <li>9, Bakare Street, Off Oriola, Ketu, Lagos</li>
+                            <li>Tel: 08071809226, 08071890230</li>
+                            <li>Email: projectpluspotentials@gmail.com</li>
                         </ul>
                     </div>
                     <div class="col-sm-4 col-md-3 item">
-                        <h3>Careers</h3>
-                        <ul>
-                            <li><a href="#">Job openings</a></li>
-                            <li><a href="#">Employee success</a></li>
-                            <li><a href="#">Benefits</a></li>
+                        <h3>Menu</h3>
+                        <ul >
+                            <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}">About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Case Studies</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}">Projects</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'services'%}">Our Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}">Our Team</a></li>
+
                         </ul>
                     </div>
                     <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
                         <p class="copyright">Project Plus Potentials © 2019</p>
+                        <p class="copyright">Created By Analytics Hub    © 2019</p>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static "js/bs-animation.js" %}></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-    <script src="{% static '/js/Simple-Slider.js' %}"></script>
+    {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+<script src="{% static 'js/bs-animation.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+<script src="{% static '/js/Simple-Slider.js' %}"></script>
+
+    {% endblock %}
+<script>$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });</script>
 
 
 </body></html>

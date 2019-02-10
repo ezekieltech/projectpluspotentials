@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %} {% load static%} {% block content %}
 <div style="background-color:#ededed;">
     <div></div>
-    <div class="project-image" style="background-image:url({%static '/img/home/Home slide.jpg'%});
+    <div class="project-image" style="background-image:url({%static '/img/IKOYI-3.jpg'%});
     margin-top:5em;
     height:480px;
     text-align:center;
@@ -10,8 +10,8 @@
     align-content:center;
     ">
         <div class="text-box">
-            <h1 class="bottom-left" style="font-size: 8vw; margin: 0 0.3em">
-                Heading Headin Heading Heading
+            <h1 class="bottom-left">
+                The {{staff.position}}
             </h1>
         </div>
     </div>
@@ -22,18 +22,21 @@
             <li class="breadcrumb-item"><a><span>Data</span></a></li>
         </ol>
     </div>
-    <div class="home-service-row" style="background-color:#ffffff;">
+    <div class="home-service" style="background-color:#fff; padding-top: 1.625em">
         <div class="container service-container">
             <div class="row">
 
                 <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-                    <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
+
                 </ol>
                 <div class="col-md-3 project-summary">
-                    <img class="img-fluid" src="{%static '/img/building.jpg'%}" />
-                    <p><strong>Paragraph</strong><br /><small>BSc, B Eng., Masters</small></p>
+                    <img class="img-fluid" src="{{staff.staff_passport.url}}" />
+                    <p><strong>{{staff.position}}</strong><br /><small>BSc, B Eng., Masters</small></p>
                 </div>
                 <div class="col-md-7">
 
@@ -47,6 +50,7 @@
             </div>
         </div>
     </div>
+    {% comment %}
     <div class="projects-horizontal">
         <div class="container">
             <div class="intro">
@@ -97,11 +101,12 @@
             </div>
         </div>
     </div>
-    <div class="home-service-row" style="background-color:#ffffff;">
+    {% endcomment %}
+    <div class="home-service-row" >
         <div class="container service-container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Services</h2>
+                    <h2><strong>Services</strong></h2>
                 </div>
             </div>
             <div class="row">
@@ -112,8 +117,8 @@
                 </div>
                 <div class="col-md-6 service-images">
                     <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({%static '/img/home page services.jpg' %});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                        <div style="background-image:url({%static '/img/home page services.jpg' %}); ">
+                            <p style="color:rgb(141,198,255); ">Building Construction</p>
                         </div>
                     </a>
                     <a href="#" data-bs-hover-animate="pulse">

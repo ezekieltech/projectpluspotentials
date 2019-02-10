@@ -6,6 +6,19 @@
 
 <div style="background-color:#ededed;">
     <div></div>
+    {% if project_list %}
+    <div class="project-image" style=
+    "background-image:url({%static '/img/warehouse.jpeg'%});
+    margin-top:5em;
+    height:480px;
+    text-align:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    align-content:center;
+    ">
+    {% endif %}
+
+    {% if service_list %}
     <div class="project-image" style=
     "background-image:url({%static '/img/home/Home slide.jpg'%});
     margin-top:5em;
@@ -15,9 +28,11 @@
     background-repeat:no-repeat;
     align-content:center;
     ">
+    {% endif %}
         <div class="text-box">
-            <h1 class="bottom-left" style="font-size: 8vw; margin: 0 0.3em">
-                Heading Headin Heading Heading
+            <h1 class="bottom-left">
+                {% if project_list %}Projects {%endif%}
+                {% if service_list %}Our Services {%endif%}
             </h1>
         </div>
     </div>
@@ -31,56 +46,81 @@
     <div class="container">
         <div class="row">
     <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-        <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+        <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
+
     </ol>
 
 
     <div class="col-md-10 projects-horizontal">
 
             <div class="intro">
+                {% if project_list %}
                 <h2 class="text-center">Projects</h2>
-                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+                <p class="text-center">
+                    We take your projects from conception to reality. Our Engineers use the best
+                    state of the equipment to meet project requirement within schedule while considering cost.
+                    Our clients are our best referrals. Join us.
+                </p>
+                {% endif %}
+
+                {% if service_list %}
+                <h2 class="text-center">Services</h2>
+                <p class="text-center">
+                    We take your services from conception to reality. Our Engineers use the best
+                    state of the equipment to meet project requirement within schedule while considering cost.
+                    Our clients are our best referrals. Join us.
+                </p>
+                {% endif %}
             </div>
+
+
             <div class="row projects">
+                {% if project_list %}
+                {% for project in project_list %}
                 <div class="col-sm-6 item">
                     <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="desk.jpg" /></a></div>
+                        <div class="col-md-12 col-lg-5">
+                            <a href="{{project.get_absolute_url}}">
+                                <img class="img-fluid" src="{{project.project_image1.url}}" />
+                            </a>
+                        </div>
                         <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                            <h3 class="name">{{project.title}}</h3>
+                            <p class="description">
+                                {{project.summary}}</p>
                         </div>
                     </div>
                 </div>
+
+                {% endfor %}
+                {% endif %}
+
+                {% if service_list %}
+                {% for service in service_list %}
                 <div class="col-sm-6 item">
                     <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="building.jpg" /></a></div>
+                        <div class="col-md-12 col-lg-5">
+                            <a href="{{service.get_absolute_url}}">
+                                <img class="img-fluid" src="{{service.service_image1.url}}" />
+                            </a>
+                        </div>
                         <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
+                            <h3 class="name">{{service.service_title}}</h3>
+                            <p class="description">
+                                {{service.service_summary}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="loft.jpg" /></a></div>
-                        <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="minibus.jpeg" /></a></div>
-                        <div class="col">
-                            <h3 class="name">Project Name</h3>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida.</p>
-                        </div>
-                    </div>
-                </div>
+
+                {% endfor %}
+                {% endif %}
+
             </div>
+
 
     </div>
 </div>
