@@ -2,6 +2,10 @@
 {% load staticfiles %}
 {% load static %}
 
+{% load websiteapp_extras %}
+{% load mycounter %}
+
+
 {% block carousel %}
 
 {% if project %}
@@ -49,12 +53,14 @@
     <div class="description">
         <div class="container">
             <div class="row" >
-
+                {% comment %}
                 {% block sidebar %}
                     {{ block.super }}
                 {% endblock %}
 
-                <div class="col-md-7 article" >
+                {% endcomment %}
+
+                <div {% if project %}class="col-md-9 article"{% endif %} >
                     {% if project %}
                     <h1>{{project.title}}</h1>
                     <div >
@@ -81,9 +87,7 @@
 
                     {% if service %}
                     <div  style="width:100%">
-                        <h2 class='service-title'>
-                            <strong>{{service}}</strong>
-                        </h2>
+                        <h2 class="mb-3">{{service}}</h2>
                     </div>
                     <div >
                         <p >{{service.service_article | safe}}</p>
@@ -96,9 +100,45 @@
 
                     <div  style="width:100%">
                         <h2 class='service-title'>
-                            <strong>Projects</strong>
+                            <strong>Projects In {{service}}</strong>
+                            <hr />
                         </h2>
+
                     </div>
+
+                    <div class="row projects">
+
+
+                        {% for project in project_list2 %}
+                        {% if project.service == service %}
+
+                        <div class="col-sm-6 item ">
+                            <div class="row " style="margin-bottom: 1.625em">
+                                <div class="col-md-12 col-lg-5 staff" data-bs-hover-animate="pulse">
+                                    <a href="{{project.get_absolute_url}}">
+                                        <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" />
+                                    </a>
+                                </div>
+                                <div class="col" style="padding-left: 0">
+                                    <a href="{{project.get_absolute_url}}" style="color:#000">
+                                        <h5 class="name" data-bs-hover-animate="pulse">
+                                            <strong>{{project.title}}</strong>
+                                        </h5>
+                                    </a>
+
+                                    <p class="description" >
+                                        {{project.summary}}
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+
+                    </div>
+                    {% comment %}
                     <div class="row projects">
                         {% if project_list2 %}
                             {% for project in project_list2 %}
@@ -123,6 +163,103 @@
                             {% endfor %}
                             {% endif %}
                 </div>
+
+
+                <div class='accordion'>
+
+                        {% with "#"|addstr:service as targetid %}
+                <div  id={{targetid|slice:"1:"}} data-aos="fade-right">
+                    {% endwith %}
+
+                    <div class="row projects" style="margin: 15px auto">
+                        {% if count_civil_projects %}
+                            {% for project in count_civil_projects %}
+                                {% if project.service == service%}
+                                            <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                                <a href="{% url 'project-detail' project.id %}" >
+                                                    <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                </a>
+                                            </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+
+                        {% if count_electrical_projects %}
+                            {% for project in count_electrical_projects %}
+                                {% if project.service == service%}
+                                            <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                                <a href="{% url 'project-detail' project.id %}" >
+                                                    <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                </a>
+                                            </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if count_mgt_projects %}
+                            {% for project in count_mgt_projects %}
+                                {% if project.service == service%}
+                                            <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                                <a href="{% url 'project-detail' project.id %}" >
+                                                    <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+
+                                                    <small>{{project.title}}:</strong>{{project.summary}}</small>
+
+
+                                            </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+
+                            <div style="max-height:215px; max-width:550px; margin:5px 0 0 20px;">
+                                <h6><strong>{{service}}</strong></h6>
+                                <small>
+                                <ul>
+                                {% for project in count_civil_projects|slice:':4' %}
+                                    {% if project.service == service %}
+
+                                    <li>
+                                        <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                    </li>
+
+                                {% endif %}
+                                {% endfor %}
+
+                                {% for project in count_electrical_projects|slice:':4' %}
+                                    {% if project.service == service %}
+
+                                    <li>
+                                        <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                    </li>
+
+                                {% endif %}
+                                {% endfor %}
+
+                                {% for project in count_mgt_projects|slice:':4' %}
+                                    {% if project.service == service %}
+
+                                    <li>
+                                        <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                    </li>
+
+                                {% endif %}
+                                {% endfor %}
+                                </ul>
+                                </small>
+                            </div>
+                </div>
+
+                </div>
+                {% endcomment %}
+
+
+
+
+
+                </div>
+
+
                     {% endif %}
 
                 </div>

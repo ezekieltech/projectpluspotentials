@@ -2,6 +2,7 @@
 
 {% load static%}
 {% load websiteapp_extras %}
+{% load mycounter %}
 
 {% block carousel %}
 <div class="main-image"
@@ -41,7 +42,7 @@
 
 
 <section class="description">
-    <div class="container" data-aos="fade-right">
+    <div class="container" >
         <div class="row">
 
             {% if project_list %}
@@ -78,7 +79,7 @@
               <div class="row my-shuffle">
                   {% for project in project_list %}
 
-                <figure class="image-item col-3" data-groups='["{{project.service}}"]'>
+                <figure class="image-item col-3" data-groups='["{{project.service}}"]' >
                     <a href="{% url 'project-detail' project.id %}"  >
                   <div class="aspect aspect--16x9">
 
@@ -104,46 +105,113 @@
 
             {% if service_list %}
             <div class='accordion'>
+                <h2 class="mb-3">We are 100% Committed to Offering Quality Service.</h2>
+                <p>
+                    Our service offerings are:
+                    <ul>
+                        {% for service in service_list %}
+                        <li>
+                            {{service}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </p>
                 {% for service in service_list %}
                     {% with "#"|addstr:service as targetid %}
                         <button data-toggle="collapse" data-parent="#accordion" data-target={{targetid}} style="width:100%">
                             <h4 class='service-title'>
-                                {{service}}
+                                <strong>{{service}}</strong>
                             </h4>
                             <small class='text-center' {% if forloop.first %} style="display:none" {% else %}style="display:block"{% endif %}>
                             Click here to see recent {{service}} projects
                             </small>
                         </button>
-            <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}}>
+            <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}} data-aos="fade-right">
                 {% endwith %}
                 <a href='#'><small class='text-center'><strong>Click here to see ALL {{service}} projects</strong></small></a>
-                <div class="row projects">
-                    {% if project_list2 %}
-                        {% for project in project_list2|slice:":4" %}
-                            {% if project.service == service %}
-                                <div class="col-md-6 item" style="padding: 10px 0 0 10px;
-                        border-color: black;
-                        border-style: dotted;">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-5">
-                                            <a href="{% url 'project-detail' project.id %}">
-                                                <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" />
-                                        </div>
-                                        <div class="project-text-summary" style="margin-left:10px">
-                                            <h3 class="name">{{project.title}}</h3>
+
+                <div class="row projects" style="margin: 15px auto">
+                    {% if count_civil_projects %}
+                        {% for project in count_civil_projects|slice:':4' %}
+                            {% if project.service == service%}
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                            <a href="{% url 'project-detail' project.id %}" >
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
                                             </a>
-                                            <p class="description">
-                                            {{project.summary}}</p>
                                         </div>
-                                    </div>
-                                </div>
                             {% endif %}
                         {% endfor %}
-                        {% endif %}
-            </div>
+                    {% endif %}
+
+
+                    {% if count_electrical_projects %}
+                        {% for project in count_electrical_projects|slice:':4' %}
+                            {% if project.service == service%}
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                            <a href="{% url 'project-detail' project.id %}" >
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                            </a>
+                                        </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if count_mgt_projects %}
+                        {% for project in count_mgt_projects|slice:':4' %}
+                            {% if project.service == service%}
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                            <a href="{% url 'project-detail' project.id %}" >
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                            </a>
+                                        </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+
+                        <div style="max-height:215px; max-width:550px; margin:5px 0 0 20px;">
+                            <h6><strong>{{service}}</strong></h6>
+                            <small>
+                            <ul>
+                            {% for project in count_civil_projects|slice:':4' %}
+                                {% if project.service == service %}
+
+                                <li>
+                                    <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                </li>
+
+                            {% endif %}
+                            {% endfor %}
+
+                            {% for project in count_electrical_projects|slice:':4' %}
+                                {% if project.service == service %}
+
+                                <li>
+                                    <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                </li>
+
+                            {% endif %}
+                            {% endfor %}
+
+                            {% for project in count_mgt_projects|slice:':4' %}
+                                {% if project.service == service %}
+
+                                <li>
+                                    <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                </li>
+
+                            {% endif %}
+                            {% endfor %}
+                            </ul>
+                            </small>
+                        </div>
             </div>
 
+            </div>
+
+
+
             {% endfor %}
+
             </div>
 
             {% endif %}

@@ -77,6 +77,12 @@ class ServiceListView(generic.ListView):
         # Add in a QuerySet of all the books
         context['industry_list'] = Industry.objects.all()
         context['project_list2'] = Project.objects.all()
+        context['count_civil_projects'] = Project.objects.filter(
+            service__service_title__icontains='Civil/')[:4]
+        context['count_electrical_projects'] = Project.objects.filter(
+            service__service_title__icontains='electrical')[:4]
+        context['count_mgt_projects'] = Project.objects.filter(
+            service__service_title__icontains='project')[:4]
         context['activate_link'] = 'active'
         return context
 
@@ -91,6 +97,12 @@ class ServiceDetailView(generic.DetailView):
         # Add in a QuerySet of all the books
         context['industry_list'] = Industry.objects.all()
         context['project_list2'] = Project.objects.all()
+        context['count_civil_projects'] = Project.objects.filter(
+            service__service_title__icontains='Civil/')
+        context['count_electrical_projects'] = Project.objects.filter(
+            service__service_title__icontains='electrical')
+        context['count_mgt_projects'] = Project.objects.filter(
+            service__service_title__icontains='project')
         context['activate_link'] = 'active'
         return context
 

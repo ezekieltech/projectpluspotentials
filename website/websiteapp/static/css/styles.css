@@ -610,7 +610,7 @@ a:hover {
 }
 
 .service-title {
-    background-color: #DEAE64;
+    /*background-color: #DEAE64;*/
     padding: 0.215em;
     text-align: left;
     font-size: 1.25em
