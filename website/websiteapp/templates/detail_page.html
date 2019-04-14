@@ -1,114 +1,173 @@
 {% extends "base_generic.html" %}
-
 {% load staticfiles %}
 {% load static %}
+
+{% block carousel %}
+
+{% if project %}
+<div class="main-image" style="background-image:url({{project.projectimage_set.all.0.image.url}});">
+{% endif %}
+{% if service %}
+    <div class="main-image" style="background-image:url({{service.service_image1.url}});">
+        {% endif %}
+
+        <div class="carousel-caption">
+            <span class="animated bounce"></span>
+            <div class="box animated fadeIn" style="animation-delay: 1s">
+                <h2 class="animated bounceInRight" style="animation-delay: 1s">
+                    {%if project %}{{project.title}} {% endif %}
+                    {% if service %}{{service.service_title}} {% endif %}
+                </h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% load django_bootstrap_breadcrumbs %}
+
+
+<div class='breadcrumbs'>
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if project %}{% breadcrumb "Projects" "projects" %} {% endif %}
+    {% if project %}{% breadcrumb project.title project.get_absolute_url %}{% endif %}
+
+    {% if service %}{% breadcrumb "Services" "services" %} {% endif %}
+    {% if service %}{% breadcrumb service.service_title service.get_absolute_url %}{% endif %}
+{% endblock %}
+{% block conten %}
+    {% render_breadcrumbs %}
+{% endblock %}
+</div>
 
 {% block content %}
 
 
-{% if project %}
-<div class="project-image" style=
-"background-image:url({%static '/img/home/Home slide.jpg'%});
-margin-top:5em;
-height:480px;
-text-align:center;
-background-size:cover;
-background-repeat:no-repeat;
-align-content:center;
-">
-{% endif %}
 
-{% if service %}
-<div class="project-image" style=
-"background-image:url({{service.service_image1.url}});
-margin-top:5em;
-height:480px;
-text-align:center;
-background-size:cover;
-background-repeat:no-repeat;
-align-content:center;
-">
-{% endif %}
-        <div class="text-box">
-
-            <h1 class='bottom-left'>
-                {%if project %}{{project.title}} {% endif %}
-                {{service.service_title}}
-            </h1>
-        </div>
-    </div>
-    <div class="breadcrum">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a><span>Library</span></a></li>
-            <li class="breadcrumb-item"><a><span>Data</span></a></li>
-        </ol>
-    </div>
     <div class="description">
         <div class="container">
-            <div class="row">
+            <div class="row" >
 
-                <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
+                {% block sidebar %}
+                    {{ block.super }}
+                {% endblock %}
 
-                </ol>
-
-                <div class="col-md-7">
+                <div class="col-md-7 article" >
                     {% if project %}
                     <h1>{{project.title}}</h1>
-                    <p>{{project.project_article}}</div>
-                    {% endif %}
+                    <div >
+                        <p >{{project.project_article | safe}}</p>
+                    </div>
+
+
+                    {% if project %}
+                    <div class="row lightbox-row">
+                        {% for image in project_images1 %} {% if image %}
+                        <a href="{{image.image.url}}" data-toggle="lightbox" data-gallery="gallery" class="col-md-4 lightbox">
+                              <img src="{{image.image.url}}" class="img-fluid rounded"/>
+                          </a> {% endif %} {% endfor %}
+                    </div>
+
+                    <div class="row lightbox-row">
+                        {% for image in project.projectimage_set.all %} {% if image %}
+                        <a href="{{image.image.url}}" data-toggle="lightbox" data-gallery="gallery" class="col-md-4 lightbox">
+                              <img src="{{image.image.url}}" class="img-fluid rounded"/>
+                          </a> {% endif %} {% endfor %}
+                    </div>
+                    {% endif %} {% endif %}
+
 
                     {% if service %}
-                    <h1>{{service.service_title}}</h1>
-                    <p>{{service.service_article}}</div>
+                    <div  style="width:100%">
+                        <h2 class='service-title'>
+                            <strong>{{service}}</strong>
+                        </h2>
+                    </div>
+                    <div >
+                        <p >{{service.service_article | safe}}</p>
+                    </div>
                     {% endif %}
-                    {% comment %}
-                <div class="col-md-3 project-summary">
-                    <ul>
-                        <li>{{project.client}}</li>
-                        <li> {{project.location}}</li>
-                        <li>  {{project.date}} </li>
-                    </ul>
-                </div>
-                {% endcomment %}
-            </div>
-        </div>
-    </div>
-    {% if project %}
-<div class="row justify-content-center">
 
-    <div class="col-md-8">
-        <div class="row">
-            <a href="{{project.project_image1.url}}"  data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image1.url}}" class="img-fluid img-thumbnail">
-            </a>
-            <a href="{{project.project_image2.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image2.url}}" class="img-fluid img-thumbnail">
-            </a>
-            <a href="{{project.project_image3.url}}"  data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image3.url}}" class="img-fluid img-thumbnail">
-            </a>
-        </div>
-        <div class="row">
-            <a href="{{project.project_image4.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image4.url}}" class="img-fluid">
-            </a>
-            <a href="{{project.project_image5.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image5.url}}" class="img-fluid">
-            </a>
-            <a href="{{project.project_image6.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-                <img src="{{project.project_image6.url}}" class="img-fluid">
-            </a>
+
+
+                    {% if service %}
+
+                    <div  style="width:100%">
+                        <h2 class='service-title'>
+                            <strong>Projects</strong>
+                        </h2>
+                    </div>
+                    <div class="row projects">
+                        {% if project_list2 %}
+                            {% for project in project_list2 %}
+                            {% if project.service == service %}
+                                    <div class="col-md-6 item" style="padding: 10px 0 0 10px;
+                            border-color: black;
+                            border-style: dotted;">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-5">
+                                                <a href="{% url 'project-detail' project.id %}">
+                                                    <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" />
+                                            </div>
+                                            <div class="project-text-summary" style="margin-left:10px">
+                                                <h3 class="name">{{project.title}}</h3>
+                                                </a>
+                                                <p class="description">
+                                                {{project.summary}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                </div>
+                    {% endif %}
+
+                </div>
+
+
+
+                {% if project %}
+                <div class="col-md-3 project-summary">
+                    <div class="project-summary-list">
+                        <ul>
+                            {%if project.client %}
+                            <li><strong>Client</strong><br />{{project.client}}</li>
+                            {% endif %} {%if project.location %}
+                            <li><strong>Service</strong> <br />{{project.location}}</li>
+                            {% endif %} {%if project.industry %}
+                            <li><strong>Industry</strong> <br />{{project.industry}}</li>
+                            {% endif %} {%if project.cost_estimate %}
+                            <li><strong>Cost Estimate</strong> <br />{{project.cost_estimate}}</li>
+                            {% endif %} {%if project.project_date %}
+                            <li><strong>Date</strong> <br />{{project.project_date}} </li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                    {% comment %}
+                    <div class="h_iframe">
+                        <h4>Our Approach</h4>
+
+                        <iframe style="width: 100%; " src="http://www.youtube.com/embed/UnBlst3T7bY" frameborder="0" allowfullscreen></iframe>
+
+                    </div>
+                    {% endcomment %}
+                </div>
+
+
+                {% endif %}
+            </div>
+
+
+
         </div>
     </div>
 </div>
-{% endif %}
-</div>
+
+
 
 
 
@@ -116,11 +175,12 @@ align-content:center;
 <!--
   <h1>Title: {{ project.title }}</h1> -->
 
-  <!--<p><strong>Project:</strong> <a href="">{{ project.title }} </a></p> --><!-- author detail link not yet defined -->
-  <!-- <p><strong>Summary:</strong> {{ project.summary }}</p>
+<!--<p><strong>Project:</strong> <a href="">{{ project.title }} </a></p> -->
+<!-- author detail link not yet defined -->
+<!-- <p><strong>Summary:</strong> {{ project.summary }}</p>
   <p><strong>Client:</strong> {{ project.client }}</p>
   <p><strong>Language:</strong> {{ book.language }}</p> -->
-  <!--<p><strong>Genre:</strong>
+<!--<p><strong>Genre:</strong>
       {% for genre in book.genre.all %}
       {{ genre }}
       {% if not forloop.last %}, {% endif %}{% endfor %}</p>

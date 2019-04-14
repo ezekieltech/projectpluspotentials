@@ -1,0 +1,99 @@
+{% extends "base_generic.html" %}
+
+{% load static%}
+{% load websiteapp_extras %}
+
+{% block carousel %}
+<div class="main-image"
+    {% if project_list %}style="background-image:url({%static '/img/warehouse.jpeg'%});"{% endif %}
+    {% if service_list %}style="background-image:url({%static '/img/IKOYI-3.jpg'%});"{% endif %}
+    >
+    <div class="carousel-caption">
+        <span class="animated bounce"></span>
+        <div class="box animated fadeIn" style="animation-delay: 1s">
+            <h2 class="animated bounceInRight" style="animation-delay: 1s">
+                {% if project_list %}Projects {%endif%}
+                {% if service_list %}Our Services {%endif%}
+            </h2>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% load django_bootstrap_breadcrumbs %}
+<div class='breadcrumbs'>
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if project_list %}{% breadcrumb "Projects" "projects" %} {% endif %}
+    {% if service_list %}{% breadcrumb "Services" "services" %} {% endif %}
+{% endblock %}
+{% block conten %}
+    {% render_breadcrumbs %}
+{% endblock %}
+</div>
+
+
+{% block content %}
+
+<section style="background-color: #e9ecef;">
+
+
+<div class="container">
+  <h1 class="mb-3">You Dream it. We Design and Execute.</h1>
+  <p>
+      Your projects are our pride. Every project is designed with
+       <strong>Broad Vision</strong> that meets clients requirement,
+       covering the edge cases; <strong>Careful Thought</strong> from experienced
+       enginners and trusted partners, and <strong>Computer Aided Designs</strong>
+       for state-of-the-art project designs and execution. We suggest the best ideas
+       and develop them - always communicating with clients to ensure project is
+       completed on time and on budget.
+  </p>
+  <div class="row">
+    <div class="col">
+      <p class="mb-1">Filters:</p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-primary active">
+            <input type="radio" name="shuffle-filter" value="all" checked="checked"/>All
+          </label>
+         {% for service in service_list2 %}
+         <label class="btn btn-outline-primary">
+           <input type="radio" name="shuffle-filter" value="{{service}}"/>{{service}}
+         </label>
+         {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="row my-shuffle">
+      {% for project in project_list %}
+
+    <figure class="image-item col-3" data-groups='["{{project.service}}"]'>
+        <a href="{% url 'project-detail' project.id %}"  >
+      <div class="aspect aspect--16x9">
+
+        <div class="aspect__inner" data-bs-hover-animate="pulse" data-aos="fade-right">
+
+            <img src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
+        </div>
+
+      </div>
+      <figcaption data-bs-hover-animate="pulse">
+          <small>
+              <strong>{{project.title}}</strong><br />
+             <em>{{project.summary}}</em>
+          </small>
+      </figcaption>
+      </a>
+    </figure>
+
+    {% endfor %}
+    </div>
+</div>
+
+</section>
+{% endblock %}

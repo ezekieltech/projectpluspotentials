@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ContactForm
 
-from .models import Project, Press, Staff, Home, Service
+from .models import Project, Press, Staff, Home, Service, Industry, Department
 
 # Create your views here.
 
@@ -18,7 +18,7 @@ def index(request):
     """
     # Generate counts of some of the main objects
     projects = Project.objects.all()
-    projects = projects[0:3]
+    projects = projects[0:4]
     press = Press.objects.all().count()
     # Available books (status = 'a')
     # num_instances_available=BookInstance.objects.filter(status__exact='a').count()
@@ -27,7 +27,7 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
 
     all_services = Service.objects.all()
-    services = all_services[0:3]
+    services = all_services[0:4]
 
     return render(
         request,
@@ -37,24 +37,72 @@ def index(request):
 
 class ProjectListView(generic.ListView):
     model = Project
+    model2 = Industry
     paginate_by = 10
     template_name = 'list_page.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['industry_list'] = Industry.objects.all()
+        context['service_list2'] = Service.objects.all()
+
+        return context
 
 
 class ProjectDetailView(generic.DetailView):
     model = Project
     template_name = 'detail_page.html'
+    #pk = Project.id
+    # print(project.projectimage_set.all.0.image.url)
+    # def get_context_data(self, **kwargs):
+    #    context = super(ProjectDetailView, self).get_context_data(**kwargs)
+    #    print(Project.id)
+    #    project = Project.objects.get(pk=pk)
+    #    image_list = project.images.all()
+    #    context['main_image'] = image_list[0]
+    #    context['project_images1'] = image_list[1:4]
+    #    context['project_images2'] = image_list[4:]
+    #    return context
 
 
 class ServiceListView(generic.ListView):
     model = Service
-    paginate_by = 10
     template_name = 'list_page.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['industry_list'] = Industry.objects.all()
+        context['project_list2'] = Project.objects.all()
+        context['activate_link'] = 'active'
+        return context
 
 
 class ServiceDetailView(generic.DetailView):
     model = Service
     template_name = 'detail_page.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['industry_list'] = Industry.objects.all()
+        context['project_list2'] = Project.objects.all()
+        context['activate_link'] = 'active'
+        return context
+
+
+class IndustryDetailView(generic.DetailView):
+    model = Industry
+    template_name = 'detail_page.html'
+
+
+class IndustryListView(generic.ListView):
+    model = Industry
+    template_name = 'list_page.html'
 
 
 class StaffListView(generic.ListView):
@@ -66,6 +114,7 @@ class StaffListView(generic.ListView):
         context = super(StaffListView, self).get_context_data(**kwargs)
         all_services = Service.objects.all()
         context['services'] = all_services[0:3]
+        context['departments'] = Department.objects.all()
         return context
 
 

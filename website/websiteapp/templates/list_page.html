@@ -1,131 +1,156 @@
 {% extends "base_generic.html" %}
 
 {% load static%}
+{% load websiteapp_extras %}
+
+{% block carousel %}
+<div class="main-image"
+    {% if project_list %}style="background-image:url({%static '/img/warehouse.jpeg'%});"{% endif %}
+    {% if service_list %}style="background-image:url({%static '/img/IKOYI-3.jpg'%});"{% endif %}
+    >
+    <div class="carousel-caption">
+        <span class="animated bounce"></span>
+        <div class="box animated fadeIn" style="animation-delay: 1s">
+            <h2 class="animated bounceInRight" style="animation-delay: 1s">
+                {% if project_list %}Projects {%endif%}
+                {% if service_list %}Our Services {%endif%}
+            </h2>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% load django_bootstrap_breadcrumbs %}
+<div class='breadcrumbs'>
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if project_list %}{% breadcrumb "Projects" "projects" %} {% endif %}
+    {% if service_list %}{% breadcrumb "Services" "services" %} {% endif %}
+{% endblock %}
+{% block conten %}
+    {% render_breadcrumbs %}
+{% endblock %}
+</div>
+
 
 {% block content %}
 
-<div style="background-color:#ededed;">
-    <div></div>
-    {% if project_list %}
-    <div class="project-image" style=
-    "background-image:url({%static '/img/warehouse.jpeg'%});
-    margin-top:5em;
-    height:480px;
-    text-align:center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    align-content:center;
-    ">
-    {% endif %}
 
-    {% if service_list %}
-    <div class="project-image" style=
-    "background-image:url({%static '/img/home/Home slide.jpg'%});
-    margin-top:5em;
-    height:480px;
-    text-align:center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    align-content:center;
-    ">
-    {% endif %}
-        <div class="text-box">
-            <h1 class="bottom-left">
-                {% if project_list %}Projects {%endif%}
-                {% if service_list %}Our Services {%endif%}
-            </h1>
+
+
+
+<section class="description">
+    <div class="container" data-aos="fade-right">
+        <div class="row">
+
+            {% if project_list %}
+            <div class="" style="padding-left:10px">
+              <h1 class="mb-3">You Dream it. We Design and Execute.</h1>
+              <p>
+                  Your projects are our pride. Every project is designed with
+                   <strong>Broad Vision</strong> that meets clients requirement,
+                   covering the edge cases; <strong>Careful Thought</strong> from experienced
+                   enginners and trusted partners, and <strong>Computer Aided Designs</strong>
+                   for state-of-the-art project designs and execution. We suggest the best ideas
+                   and develop them - always communicating with clients to ensure project is
+                   completed on time and on budget.
+              </p>
+              <div class="row">
+                <div class="col">
+                  <p class="mb-1">Filters:</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-outline-primary active">
+                        <input type="radio" name="shuffle-filter" value="all" checked="checked"/>All
+                      </label>
+                     {% for service in service_list2 %}
+                     <label class="btn btn-outline-primary">
+                       <input type="radio" name="shuffle-filter" value="{{service}}"/>{{service}}
+                     </label>
+                     {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="row my-shuffle">
+                  {% for project in project_list %}
+
+                <figure class="image-item col-3" data-groups='["{{project.service}}"]'>
+                    <a href="{% url 'project-detail' project.id %}"  >
+                  <div class="aspect aspect--16x9">
+
+                    <div class="aspect__inner" data-bs-hover-animate="pulse" data-aos="fade-right">
+
+                        <img src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
+                    </div>
+
+                  </div>
+                  <figcaption data-bs-hover-animate="pulse">
+                      <small>
+                          <strong>{{project.title}}</strong><br />
+                         <em>{{project.summary}}</em>
+                      </small>
+                  </figcaption>
+                  </a>
+                </figure>
+
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if service_list %}
+            <div class='accordion'>
+                {% for service in service_list %}
+                    {% with "#"|addstr:service as targetid %}
+                        <button data-toggle="collapse" data-parent="#accordion" data-target={{targetid}} style="width:100%">
+                            <h4 class='service-title'>
+                                {{service}}
+                            </h4>
+                            <small class='text-center' {% if forloop.first %} style="display:none" {% else %}style="display:block"{% endif %}>
+                            Click here to see recent {{service}} projects
+                            </small>
+                        </button>
+            <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}}>
+                {% endwith %}
+                <a href='#'><small class='text-center'><strong>Click here to see ALL {{service}} projects</strong></small></a>
+                <div class="row projects">
+                    {% if project_list2 %}
+                        {% for project in project_list2|slice:":4" %}
+                            {% if project.service == service %}
+                                <div class="col-md-6 item" style="padding: 10px 0 0 10px;
+                        border-color: black;
+                        border-style: dotted;">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-5">
+                                            <a href="{% url 'project-detail' project.id %}">
+                                                <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" />
+                                        </div>
+                                        <div class="project-text-summary" style="margin-left:10px">
+                                            <h3 class="name">{{project.title}}</h3>
+                                            </a>
+                                            <p class="description">
+                                            {{project.summary}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+            </div>
+            </div>
+
+            {% endfor %}
+            </div>
+
+            {% endif %}
+    </div>
         </div>
     </div>
-    <div class="breadcrum">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a><span>Library</span></a></li>
-            <li class="breadcrumb-item"><a><span>Data</span></a></li>
-        </ol>
-    </div>
-    <div class="container">
-        <div class="row">
-    <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-        <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
-
-    </ol>
-
-
-    <div class="col-md-10 projects-horizontal">
-
-            <div class="intro">
-                {% if project_list %}
-                <h2 class="text-center">Projects</h2>
-                <p class="text-center">
-                    We take your projects from conception to reality. Our Engineers use the best
-                    state of the equipment to meet project requirement within schedule while considering cost.
-                    Our clients are our best referrals. Join us.
-                </p>
-                {% endif %}
-
-                {% if service_list %}
-                <h2 class="text-center">Services</h2>
-                <p class="text-center">
-                    We take your services from conception to reality. Our Engineers use the best
-                    state of the equipment to meet project requirement within schedule while considering cost.
-                    Our clients are our best referrals. Join us.
-                </p>
-                {% endif %}
-            </div>
-
-
-            <div class="row projects">
-                {% if project_list %}
-                {% for project in project_list %}
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5">
-                            <a href="{{project.get_absolute_url}}">
-                                <img class="img-fluid" src="{{project.project_image1.url}}" />
-                            </a>
-                        </div>
-                        <div class="col">
-                            <h3 class="name">{{project.title}}</h3>
-                            <p class="description">
-                                {{project.summary}}</p>
-                        </div>
-                    </div>
-                </div>
-
-                {% endfor %}
-                {% endif %}
-
-                {% if service_list %}
-                {% for service in service_list %}
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5">
-                            <a href="{{service.get_absolute_url}}">
-                                <img class="img-fluid" src="{{service.service_image1.url}}" />
-                            </a>
-                        </div>
-                        <div class="col">
-                            <h3 class="name">{{service.service_title}}</h3>
-                            <p class="description">
-                                {{service.service_summary}}</p>
-                        </div>
-                    </div>
-                </div>
-
-                {% endfor %}
-                {% endif %}
-
-            </div>
-
-
-    </div>
-</div>
-    </div>
-</div>
+</section>
 <!--
     <h1>Project List</h1>
 

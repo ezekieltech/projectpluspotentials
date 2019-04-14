@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import slugify
+
+from tinymce.models import HTMLField
 
 from PIL import Image
 from .utilities import rescale_image
@@ -12,53 +15,80 @@ import sys
 # Create your models here.
 
 
+# class ProjectDetailContent(models.Model):
+#
+#    main_title = models.CharField(max_length=100, blank=True, null=True, default='Project')
+#    sub_title = models.CharField(max_length=100, blank=True, null=True, default='Project')
+#    short_intro = models.TextField(
+#        max_length=540, default='We see your project from start to finish.', blank=False, null=False)
+#
+#    def __str__(self):
+#        """
+#        String for representing the Service object (in Admin site etc.)
+#        """
+#        return self.main_title
+#
+
+class Industry(models.Model):
+    #project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='industries')
+    industry = models.CharField(max_length=200, default='')
+
+    class Meta:
+        ordering = ["industry"]
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.industry
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular project instance.
+        """
+        return reverse('project-in-industry', args=[str(self.id)])
+
+
+class Department(models.Model):
+    department = models.CharField(max_length=200, default='Civil Design Team')
+
+    class Meta:
+        ordering = ["department"]
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.department
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular project instance.
+        """
+        return reverse('department', args=[str(self.id)])
+
+
 class Project(models.Model):
     """
     Model representing a project (a specific project).
     """
-    title = models.CharField(max_length=200)
-    client = models.CharField(max_length=200)
-    #author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    # Foreign Key used because book can only have one author, but authors can have multiple books
-    # Author as a string rather than object because it hasn't been declared yet in the file.
-    summary = models.TextField(
-        max_length=1000, help_text="Enter a brief description of the project")
-    project_article = models.TextField(max_length=1000, help_text="Enter prject article")
+    title = models.CharField(max_length=200, default='')
+    slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
+    client = models.CharField(max_length=200, default='')
+    location = models.CharField(max_length=400, blank=True, null=True)
+    summary = models.TextField(max_length=400, blank=True, null=True)
+    project_article = HTMLField('content', default='')
+    industry = models.ForeignKey(Industry,
+                                 on_delete=models.CASCADE)
+
+    service = models.ForeignKey('Service',
+                                on_delete=models.CASCADE, related_name='type_of_service',  blank=True, null=True)
+
+    #get_industry = Industry.industry.objects.all
+    #industry = models.CharField(choices=get_industry, default='construction')
+    # imgs = models.ImageField(upload_to='projectimages/mainproject',
+    #                         default='serviceimages/None/no-img.jpg')
     project_date = models.DateField(null=True, blank=True)
-    project_image1 = models.ImageField(
-        upload_to='projectimages/', default='projectimages/None/no-img.jpg')
-    project_image2 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-    project_image3 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-    project_image4 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-    project_image5 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-    project_image6 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-    project_image7 = models.ImageField(
-        upload_to='projectimages/gallery/', default='projectimages/gallery/None/no-img.jpg')
-
-    SERVICE = (
-        ('con', 'construction'),
-        ('bui', 'building'),
-        ('rea', 'real estate')
-    )
-    project_service = models.CharField(max_length=3, choices=SERVICE, blank=True,
-                                       default='og', help_text='What is project service description')
-
-    INDUSTRY = (
-        ('og', 'Oil and Gas'),
-        ('ed', 'Education'),
-        ('po', 'Power'),
-        ('el', 'electrical')
-    )
-    industry = models.CharField(max_length=2, choices=INDUSTRY, blank=True,
-                                default='og', help_text='Client in what Industry?')
-    #genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
-    # ManyToManyField used because genre can contain many books. Books can cover many genres.
-    # Genre class has already been defined so we can specify the object above.
 
     def __str__(self):
         """
@@ -67,7 +97,7 @@ class Project(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["project_date"]
+        ordering = ["-project_date"]
 
     def get_absolute_url(self):
         """
@@ -76,20 +106,29 @@ class Project(models.Model):
         return reverse('project-detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
-        project_images_to_resize = [
+        #self.slug = '%i-%s' % (self.id, slugify(self.title))
+        self.slug = '%s' % (slugify(self.title))
+        '''
+        self.project_images = [
             self.project_image1,
             self.project_image2,
             self.project_image3,
             self.project_image4,
             self.project_image5,
-            self.project_image6,
-            self.project_image7
+            self.project_image6
         ]
-        for project_img in project_images_to_resize:
-            if project_img:
-                image = project_img
-                self.project_img = rescale_image(self, image)
+        # for project_img in project_images_to_resize:
+        #    if project_img:
+        #        image = project_img
+        #        self.project_img = rescale_image(self, image)
+        '''
         super(Project, self).save(*args, **kwargs)
+
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projectimages/gallery/',
+                              default='serviceimages/None/no-img.jpg')
 
 
 class Service(models.Model):
@@ -98,9 +137,9 @@ class Service(models.Model):
     """
 
     # Fields
-    service_title = models.CharField(max_length=20, help_text="Title of service")
-    service_article = models.TextField(max_length=1000, help_text='Enter article here')
-    service_summary = models.CharField(max_length=200, help_text="Summary for service")
+    project = models.ManyToManyField(Project, related_name='services')
+    service_title = models.CharField(max_length=100, help_text="Title of service")
+    service_article = HTMLField('content')
     service_date = models.DateField(null=True, blank=True)
     service_image1 = models.ImageField(
         upload_to='serviceimages/',
@@ -139,11 +178,14 @@ class Staff(models.Model):
     # Fields
     name = models.CharField(max_length=100, help_text="Name of staff")
     position = models.CharField(max_length=100, help_text="Name of Job Position")
-    order_of_appearance_on_website = models.IntegerField(max_length=2)
-    qualification = models.CharField(max_length=100, help_text="Enter Job Qualification")
-    cv = models.TextField(max_length=1000, help_text='Enter article here')
+    order_of_appearance_on_website = models.IntegerField(
+        help_text="Enter Desired Order of appearance on website")
+    qualification = models.CharField(max_length=200, help_text="Enter Job Qualification")
+    cv = HTMLField('content')
     staff_passport = models.ImageField(
         upload_to='staffimages/', default='staffimages/None/no-img.jpg')
+    department = models.ForeignKey(Department,
+                                   on_delete=models.CASCADE, blank=True, null=True)
 
     # Metadata
 
@@ -172,7 +214,7 @@ class Home(models.Model):
     # Fields
     title = models.CharField(max_length=20, help_text="Main Home Title")
     location = models.CharField(max_length=20, help_text="Main Project Location")
-    about_us = models.TextField(max_length=1000, help_text='About Project Plus Potentials')
+    about_us = HTMLField('content')
 
     # Metadata
 
@@ -200,12 +242,12 @@ class Press(models.Model):
 
     # Fields
     title = models.CharField(max_length=20, help_text="Enter title for press")
-    article = models.TextField(max_length=100, help_text="Enter title for press")
+    article = HTMLField('content')
     date = models.DateField(null=True, blank=True)
     # Metadata
 
     class Meta:
-        ordering = ["-title"]
+        ordering = ["date"]
 
     # Methods
     def get_absolute_url(self):

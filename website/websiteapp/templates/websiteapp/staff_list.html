@@ -2,116 +2,177 @@
 
 {% load static%}
 
-{% block content %}
-<div style="background-color:#ededed;">
-    <div></div>
-    <div class="project-image" style=
-    "background-image:url({%static '/img/IKOYI-3.jpg'%});
-    margin-top:5em;
-    height:480px;
-    text-align:center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    align-content:center;
-    ">
-        <div class="text-box" >
-            <h1 class="bottom-left">
-                About Us
-            </h1>
+
+
+{% block carousel %}
+
+<div class="main-image" style= "background-image:url({%static '/img/teamPic.png'%});">
+    <div class="carousel-caption">
+        <span class="animated bounce"></span>
+        <div class="box animated fadeIn" style="animation-delay: 1s">
+            <h2 class="animated bounceInRight" style="animation-delay: 1s">
+            About Us
+            </h2>
         </div>
     </div>
-    <div class="breadcrum">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a><span>Library</span></a></li>
-            <li class="breadcrumb-item"><a><span>Data</span></a></li>
-        </ol>
+</div>
+{% endblock %}
+
+
+{% load django_bootstrap_breadcrumbs %}
+
+    <div class='breadcrumbs'>
+    {% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Our Team" "about-us" %}
+    {% endblock %}
+    {% block conten %}
+    {% render_breadcrumbs %}
+    {% endblock %}
     </div>
-    <div class="home-service-row" style="background-color:#ffffff;">
-        <div class="container service-container">
+
+
+{% block content %}
+<section style="background-color: #e9ecef; background-blend-mode: color;">
+        <div class="container service-container" data-aos="fade-right">
             <div class="row">
 
-                <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
+                {% block sidebar %}
+                    {{ block.super }}
+                {% endblock %}
 
-                </ol>
-
-                <div class="col-md-10 service-images">
-                    <h2 class="text-center"><strong>About Us</strong></h2>
+                <div class="col-md-9">
+                    <h2 class="text-center main-text"><strong>About Us</strong></h2>
                     <p>
-                        Project Plus Poteials is an engineering consultancy firm in
-                        Nigeria established in February 2003 and registered with the
-                        corporate affairs commission in Nigeria. We were fully registered
-                        as an Engineering consulting firm by the Council for the
-                        Regulation of Engineering in Nigeria (COREN) in the
-                        November 2005 with registeration no EF00355. Though we are
-                        relatively young, we have had over 16 yearâ€™s cognate
-                        working experience.
+                        <strong>Project + potential</strong> is an engineering consultancy firm
+                        established in February 2003 and registered by the corporate affairs
+                        commission in Nigeria.
+                        <br />
+                        <br />
+                        We were fully registered as an engineering consulting firm by the Council
+                        For Regulation Of Engineering In Nigeria (COREN) in November 2005 with registration
+                        no. EF00355. And also registered with the Association of Consulting Engineering in Nigeria
+                        (ACEN) in January 2014 with membership no. F287.
+                        <br />
+                        <br />
+                        Our vision is to produce independent and high-class engineers in our field
+                        of engineering and also provide world-class engineering services in our
+                        core area of services.
+                        <br />
+                        <br />
+                        <strong>Project + potential</strong> was established to provide
+                        quality-engineering services as follows:
+                        <ul>
+                            <li> Engineering Consultancy Services</li>
+                            <li> Civil/structural engineering services.</li>
+                            <li> Mechanical & electrical engineering services.</li>
+                            <li> Project/Construction Management.</li>
+                            <li> Engineering Procurement.</li>
+                        </ul>
+                        <br />
+                        We engage qualified engineers as staff and also partner with other
+                        professionals in the execution of projects.<br />
 
-                        Project PLus Engineers was established to provide
-                        quality-engineering services as follows
+                        In order to provide quality services, we work with all relevant
+                        codes of practice and run a completely computerized outfit equipped
+                        with state of the software (Orion, Robot, cad RC, civil 3D, Prota Structure e.t.c)
+                         and a well furnished library. We also have links with institutions locally
+                         and internationally via the internet for technical support.
 
-                                Engineering Consultancy services
-                                Civil/Structure Engineering
-                                Building Services
-                                Oil and Gas installation Designs
-                                Project/construction management
-                                Training of CAD Software
-                                Engineering procurement
                     </p>
 
                 </div>
             </div>
         </div>
-    </div>
-    <div class="projects-horizontal">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center" id='team'>Our Leadership</h2>
-                <p class="text-center">
-                    We've build a reputable team that serves the nigerian market.
-                    Our team covers key quality members that are great at what they do
-                </p>
-            </div>
-            <div class="row projects">
-                {% for staff in staff_list %}
-                <div class="col-sm-6 item">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-5" data-bs-hover-animate="pulse">
-                            <a href="{{staff.get_absolute_url}}">
-                                <img class="img-fluid" src="{{staff.staff_passport.url}}" />
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="{{staff.get_absolute_url}}" style="color:#000">
-                                <h3 class="name" data-bs-hover-animate="pulse">
-                                    {{staff.name}}
-                                </h3>
-                            </a>
+</section>
+<section style="background-color: white;">
+    <div class="container projects-horizontal stafflist" data-aos="fade-up">
+        <div class="intro">
+            <h2 class="text-center" id='team'>Our Team</h2>
 
-                            <p class="description">
-                                {{staff.position}}<br />
-                                {{staff.qualification}}
-                            </p>
-                        </div>
+        </div>
+        <div class="row projects">
+            {% for dept in departments %}
+            <h3 class='dept-title'>{{dept}}</h3>
+            {% for staff in staff_list %}
+            {% if staff.department == dept %}
+
+            <div class="col-sm-6 item ">
+                <div class="row " style="margin-bottom: 1.625em">
+                    <div class="col-md-12 col-lg-5 staff" data-bs-hover-animate="pulse">
+                        <a href="{{staff.get_absolute_url}}">
+                            <img class="img-fluid" src="{{staff.staff_passport.url}}" />
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{staff.get_absolute_url}}" style="color:#000">
+                            <h3 class="name" data-bs-hover-animate="pulse">
+                                {{staff.name}}
+                            </h3>
+                        </a>
+
+                        <p class="description" style="background-color: white">
+                            {{staff.position}}
+                            <br />
+                            <br />
+                            {{staff.qualification}}
+                        </p>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endif %}
+            {% endfor %}
+
+            {% endfor %}
         </div>
     </div>
-    <div class="home-service-row" style="background-color:#ffffff;">
-        <div class="container service-container">
+</section>
+<section style="background-color:#ededed;">
+        <div class="container home-service-row service-snippet" data-aos="flip-left">
             <div class="row">
                 <div class="col-md-12">
                     <h2><strong>Services</strong></h2>
                 </div>
             </div>
+
             <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Our vision is to produce independent and high-class engineers in our field
+                        of engineering and also provide world-class engineering services in our
+                        core area of services.
+                        <br />
+                        <br />
+                        <strong>Project + potential</strong> was established to provide
+                        quality-engineering services as follows:
+                        <ul>
+                            <li> Engineering Consultancy Services</li>
+                            <li> Civil/structural engineering services.</li>
+                            <li> Mechanical & electrical engineering services.</li>
+                            <li> Project/Construction Management.</li>
+                            <li> Engineering Procurement.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="col-md-6 service-images">
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home services.jpg'%});">
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Civil/ Structural Engineering Services.</p>
+                        </div>
+                    </a>
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Mechanical & Electrical Engineering Services.</p>
+                        </div>
+                    </a>
+                    <a href="#" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({% static '/img/home/hp-recent-graduates-img home.jpg' %});">
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Project/ Construction Management.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- <div class="row">
                 <div class="col-md-6">
                     <p>Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works. <br> <br>Over the
                         years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere. <br> <br>Through its productive journey of eight years, the company has relentlessly grown to be committed
@@ -129,9 +190,8 @@
                     {% endfor %}
 
                 </div>
-            </div>
+            </div> -->
         </div>
-    </div>
-
+</section>
 
 {% endblock %}

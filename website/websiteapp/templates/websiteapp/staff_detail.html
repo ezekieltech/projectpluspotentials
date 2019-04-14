@@ -1,38 +1,32 @@
 {% extends "base_generic.html" %} {% load static%} {% block content %}
 <div style="background-color:#ededed;">
     <div></div>
-    <div class="project-image" style="background-image:url({%static '/img/IKOYI-3.jpg'%});
-    margin-top:5em;
-    height:480px;
-    text-align:center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    align-content:center;
-    ">
-        <div class="text-box">
-            <h1 class="bottom-left">
+    <div class="main-image" style="background-image:url({%static '/img/teamPic.png'%});">
+        <div class="main-title-box">
+            <h1 class="main-title">
                 The {{staff.position}}
             </h1>
         </div>
     </div>
-    <div class="breadcrum">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a><span>Library</span></a></li>
-            <li class="breadcrumb-item"><a><span>Data</span></a></li>
-        </ol>
-    </div>
-    <div class="home-service" style="background-color:#fff; padding-top: 1.625em">
+    {% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Our Team" "about-us" %}
+    {% breadcrumb staff.name staff.get_absolute_url %}
+{% endblock %}
+{% block conten %}
+    {% render_breadcrumbs %}
+{% endblock %}
+    <div class="home-service-row">
         <div class="container service-container">
-            <div class="row">
+            <div class="row" style="margin-top: 1.25em;">
 
-                <ol class="col-md-2" style="list-style-type: none; padding: 0; margin:0">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}"><strong>ABOUT US</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><strong>CASE STUDIES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}"><strong>PROJECTS</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}"><strong>OUR SERVICES</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}"><strong>OUR TEAM</strong></a></li>
-
+                <ol class="col-md-2 side-menu">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'services'%}">Our Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}">Our Team</a></li>
                 </ol>
                 <div class="col-md-3 project-summary">
                     <img class="img-fluid" src="{{staff.staff_passport.url}}" />
@@ -41,9 +35,7 @@
                 <div class="col-md-7">
 
                     <p>
-                        Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works.<br /><br />Over
-                        the years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere.<br /><br />Through its productive journey of eight years, the company has relentlessly grown
-                        to be committed to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs<br /><br />
+                        {{staff.cv | safe }}
                     </p>
                 </div>
 
@@ -102,44 +94,67 @@
         </div>
     </div>
     {% endcomment %}
-    <div class="home-service-row" >
-        <div class="container service-container">
+</div>
+        <div class="container service-snippet">
             <div class="row">
                 <div class="col-md-12">
                     <h2><strong>Services</strong></h2>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6">
-                    <p>Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works. <br> <br>Over
-                        the years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere. <br> <br>Through its productive journey of eight years, the company has relentlessly grown
-                        to be committed to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs</p>
+                    <p>
+                        <strong>Project + potential</strong> was established to provide
+                        quality-engineering services as follows:
+                        <ul style="">
+                            <li> Civil/structural engineering services.</li>
+                            <li> Mechanical & electrical engineering services.</li>
+                            <li> Project/Construction Management.</li>
+                        </ul>
+                    </p>
                 </div>
                 <div class="col-md-6 service-images">
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({%static '/img/home page services.jpg' %}); ">
-                            <p style="color:rgb(141,198,255); ">Building Construction</p>
-                        </div>
-                    </a>
+
                     <a href="#" data-bs-hover-animate="pulse">
                         <div style="background-image:url({% static '/img/home services.jpg'%});">
-                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Building Construction</p>
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Civil/ Structural Engineering Services.</p>
                         </div>
                     </a>
                     <a href="#" data-bs-hover-animate="pulse">
                         <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Mechanical & Electrical Engineering Services.</p>
                         </div>
                     </a>
                     <a href="#" data-bs-hover-animate="pulse">
                         <div style="background-image:url({% static '/img/home/hp-recent-graduates-img home.jpg' %});">
-                            <p style="color:rgb(141,198,255);">Building Construction</p>
+                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Project/ Construction Management.</p>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <p>Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works. <br> <br>Over the
+                        years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere. <br> <br>Through its productive journey of eight years, the company has relentlessly grown to be committed
+                        to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs</p>
+                </div>
+                <div class="col-md-6 service-images">
+                    {% for service in services %}
+                    <a href="{{service.get_absolute_url}}" data-bs-hover-animate="pulse">
+                        <div style="background-image:url({{service.service_image1.url}});">
+                            <p style="color:rgb(141,198,255); background-color: rgba(137,146,231,0.6);">
+                                <strong>{{service.service_title}}</strong>
+                            </p>
+                        </div>
+                    </a>
+                    {% endfor %}
+
+                </div>
+            </div> -->
+
+
 
 
     {% endblock %}
