@@ -69,7 +69,6 @@
                             <li> Project/Construction Management.</li>
                             <li> Engineering Procurement.</li>
                         </ul>
-                        <br />
                         We engage qualified engineers as staff and also partner with other
                         professionals in the execution of projects.<br />
 
@@ -114,8 +113,7 @@
                         <p class="description" style="background-color: white">
                             {{staff.position}}
                             <br />
-                            <br />
-                            {{staff.qualification}}
+                            <small>{{staff.qualification}}</small>
                         </p>
                     </div>
                 </div>
@@ -126,72 +124,6 @@
             {% endfor %}
         </div>
     </div>
-</section>
-<section style="background-color:#ededed;">
-        <div class="container home-service-row service-snippet" data-aos="flip-left">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2><strong>Services</strong></h2>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <p>
-                        Our vision is to produce independent and high-class engineers in our field
-                        of engineering and also provide world-class engineering services in our
-                        core area of services.
-                        <br />
-                        <br />
-                        <strong>Project + potential</strong> was established to provide
-                        quality-engineering services as follows:
-                        <ul>
-                            <li> Engineering Consultancy Services</li>
-                            <li> Civil/structural engineering services.</li>
-                            <li> Mechanical & electrical engineering services.</li>
-                            <li> Project/Construction Management.</li>
-                            <li> Engineering Procurement.</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="col-md-6 service-images">
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home services.jpg'%});">
-                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Civil/ Structural Engineering Services.</p>
-                        </div>
-                    </a>
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
-                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Mechanical & Electrical Engineering Services.</p>
-                        </div>
-                    </a>
-                    <a href="#" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({% static '/img/home/hp-recent-graduates-img home.jpg' %});">
-                            <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Project/ Construction Management.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col-md-6">
-                    <p>Project Plus Potentials is a Lagos Nigerian based Building Construction, Civil Engineering and Project Management Company that specializes in all Building Construction, Civil Engineering and Project Management Works. <br> <br>Over the
-                        years, we have emerged to be a formidable and enviable construction firm in the Nigeria property development and real estate sphere. <br> <br>Through its productive journey of eight years, the company has relentlessly grown to be committed
-                        to meeting and satisfying one of the most fundamental desires on the hierarchy of human needs</p>
-                </div>
-                <div class="col-md-6 service-images">
-                    {% for service in services %}
-                    <a href="{{service.get_absolute_url}}" data-bs-hover-animate="pulse">
-                        <div style="background-image:url({{service.service_image1.url}});">
-                            <p style="color:rgb(141,198,255); background-color: rgba(137,146,231,0.6);">
-                                <strong>{{service.service_title}}</strong>
-                            </p>
-                        </div>
-                    </a>
-                    {% endfor %}
-
-                </div>
-            </div> -->
-        </div>
 </section>
 
 {% endblock %}

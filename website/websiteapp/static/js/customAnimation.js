@@ -80,11 +80,7 @@ for (var i = 0; i < btns.length; i++) {
   });
 }*/
 
-$( '#testin a' ).on( 'click', function () {
-    console.log('got here');
-	$( '#testing' ).find( 'li.active' ).removeClass( 'active' );
-	$( this ).parent( 'li' ).addClass( 'active' );
-});
+
 
 
 /*testing shuffle and filter on product page

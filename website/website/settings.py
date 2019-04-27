@@ -30,7 +30,7 @@ SECRET_KEY = 'dh_heka-ar1ggpu!m5vb!$xb+t$=6(5g7_h4om56os4&go)bpn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ebc30caa.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['edb55cea.ngrok.io', '127.0.0.1']
 
 
 # Application definition

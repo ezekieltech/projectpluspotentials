@@ -452,6 +452,17 @@ a:hover {
     margin: auto;
 }*/
 
+
+/******** Index Page ********/
+.project-summary-snippet {
+    padding: 0;
+}
+
+.project-summary-snippet h3{
+    font-size: 1.2rem;
+}
+
+
 /*Service Snippet*/
 .service-snippet {
 }
@@ -481,7 +492,8 @@ a:hover {
 }
 /* Project Snippets*/
 .projects-snippet img {
-    margin: 0.625em 0;
+    /*margin: 0.625em 0; */
+    border-radius: 0.938em;
 }
 
 .projects-snippet .projects {
@@ -495,6 +507,8 @@ a:hover {
 .projects-snippet .item {
     border-color: black;
     border-style: solid;
+    margin: 0.312em auto;
+    border-radius: 0.938em;
 }
 
 .projects-snippet h2 {
@@ -740,6 +754,11 @@ figure a{
     text-align: center;
 }
 
+.project-summary img{
+    border-radius: 0.938em;
+}
+
+
 .project-summary .h_iframe{
     font-size: 1.15em;
     margin-top: 2.25em;
@@ -913,3 +932,11 @@ header span::after {
   height: 100%;
   object-fit: cover;
 }
+
+
+/* Style the active class (and buttons on mouse-over)
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
+}
+*/

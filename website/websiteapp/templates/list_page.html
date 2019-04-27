@@ -46,6 +46,9 @@
         <div class="row">
 
             {% if project_list %}
+
+
+
             <div class="" style="padding-left:10px">
               <h1 class="mb-3">You Dream it. We Design and Execute.</h1>
               <p>
@@ -76,31 +79,61 @@
                   </div>
                 </div>
               </div>
+
+              {% if is_paginated %}
+  <div class="pagination primary" style="width:50%; background-color: #DEAE64; margin-bottom: 0.25em;">
+      <strong  style="margin: auto;">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="page-current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+          </span>
+      </strong>
+
+  </div>
+  {% endif %}
+
               <div class="row my-shuffle">
+
+
+
+
+
+
                   {% for project in project_list %}
 
                 <figure class="image-item col-3" data-groups='["{{project.service}}"]' >
                     <a href="{% url 'project-detail' project.id %}"  >
+
                   <div class="aspect aspect--16x9">
-
                     <div class="aspect__inner" data-bs-hover-animate="pulse" data-aos="fade-right">
-
+                        {% if project.projectimage_set.all %}
                         <img src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
+                        {% else %}
+                        <img src="{% static '/img/home/logo-transparent.png' %}" obj.alt="obj.alt"/>
+                        {% endif %}
                     </div>
-
                   </div>
                   <figcaption data-bs-hover-animate="pulse">
                       <small>
-                          <strong>{{project.title}}</strong><br />
-                         <em>{{project.summary}}</em>
+                          <strong>{{project.title | truncatechars:35}}</strong><br />
+                         <em>{{project.summary | truncatechars:65}}</em>
                       </small>
                   </figcaption>
                   </a>
                 </figure>
 
                 {% endfor %}
+
                 </div>
             </div>
+
             {% endif %}
 
             {% if service_list %}
@@ -126,7 +159,7 @@
                             Click here to see recent {{service}} projects
                             </small>
                         </button>
-            <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}} data-aos="fade-right">
+            <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}} >
                 {% endwith %}
                 <a href='#'><small class='text-center'><strong>Click here to see ALL {{service}} projects</strong></small></a>
 
@@ -134,9 +167,14 @@
                     {% if count_civil_projects %}
                         {% for project in count_civil_projects|slice:':4' %}
                             {% if project.service == service%}
-                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px;" data-aos="fade-right">
                                             <a href="{% url 'project-detail' project.id %}" >
+                                                {% if project.projectimage_set.all %}
                                                 <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                {% else %}
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{% static '/img/home/logo-transparent.png' %}" />
+                                                {{project.title}}
+                                                {% endif %}
                                             </a>
                                         </div>
                             {% endif %}
@@ -147,9 +185,14 @@
                     {% if count_electrical_projects %}
                         {% for project in count_electrical_projects|slice:':4' %}
                             {% if project.service == service%}
-                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px;" data-aos="fade-right">
                                             <a href="{% url 'project-detail' project.id %}" >
+                                                {% if project.projectimage_set.all %}
                                                 <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                {% else %}
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{% static '/img/home/logo-transparent.png' %}" />
+                                                {{project.title}}
+                                                {% endif %}
                                             </a>
                                         </div>
                             {% endif %}
@@ -158,9 +201,14 @@
                     {% if count_mgt_projects %}
                         {% for project in count_mgt_projects|slice:':4' %}
                             {% if project.service == service%}
-                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
+                                        <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px;" data-aos="fade-right">
                                             <a href="{% url 'project-detail' project.id %}" >
+                                                {% if project.projectimage_set.all %}
                                                 <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                {% else %}
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{% static '/img/home/logo-transparent.png' %}" />
+                                                {{project.title}}
+                                                {% endif %}
                                             </a>
                                         </div>
                             {% endif %}

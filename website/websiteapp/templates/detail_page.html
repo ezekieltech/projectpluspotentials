@@ -9,7 +9,7 @@
 {% block carousel %}
 
 {% if project %}
-<div class="main-image" style="background-image:url({{project.projectimage_set.all.0.image.url}});">
+<div class="main-image" {% if project.projectimage_set.all %}style="background-image:url({{project.projectimage_set.all.0.image.url}});" {% else %} style="background-image:url({% static '/img/teamPic.png' %});"{% endif %} >
 {% endif %}
 {% if service %}
     <div class="main-image" style="background-image:url({{service.service_image1.url}});">
@@ -273,9 +273,9 @@
                             {%if project.client %}
                             <li><strong>Client</strong><br />{{project.client}}</li>
                             {% endif %} {%if project.location %}
-                            <li><strong>Service</strong> <br />{{project.location}}</li>
-                            {% endif %} {%if project.industry %}
-                            <li><strong>Industry</strong> <br />{{project.industry}}</li>
+                            <li><strong>Location</strong> <br />{{project.location}}</li>
+                            {% endif %} {%if project.service %}
+                            <li><strong>Service</strong> <br />{{project.service}}</li>
                             {% endif %} {%if project.cost_estimate %}
                             <li><strong>Cost Estimate</strong> <br />{{project.cost_estimate}}</li>
                             {% endif %} {%if project.project_date %}

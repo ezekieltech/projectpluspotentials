@@ -31,10 +31,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto text-center" id="myDIV">
-                    <li class="nav-item-top btnn current" role="presentation"><a class="nav-link" href="{% url 'index' %}"><strong>Home</strong></a></li>
-                    <li class="nav-item-top btnn current" role="presentation"><a class="nav-link" href="{% url 'about-us' %}"><strong>About Us</strong></a></li>
-                    <li class="nav-item-top btnn" role="presentation"><a class="nav-link" href="{% url 'projects' %}"><strong>Projects</strong></a></li>
-                    <li class="nav-item-top btnn" role="presentation"><a class="nav-link" href="{% url 'services' %}"><strong>Our Services</strong></a></li>
+                    <li class="nav-item-top btn active" ><a class="nav-link " href="{% url 'index' %}"><strong>Home</strong></a></li>
+                    <li class="nav-item-top btn"><a class="nav-link" href="{% url 'about-us' %}"><strong>About Us</strong></a></li>
+                    <li class="nav-item-top btn"><a class="nav-link" href="{% url 'projects' %}"><strong>Projects</strong></a></li>
+                    <li class="nav-item-top btn"><a class="nav-link" href="{% url 'services' %}"><strong>Our Services</strong></a></li>
                     <li class="nav-contact"></li>
                     <div class="underbar"></div>
                 </ul>
@@ -115,9 +115,12 @@
                         <h3>Services</h3>
                         <ul>
 
-                            <li><a href="#">Civil/Structural Engineering Services</a></li>
-                            <li><a href="#">Mechanical and Electrical Engineering Services</a></li>
-                            <li><a href="#">Project/Construction Management</a></li>
+                            <li><a href="{% url 'services' %}">Civil/ Construction Services</a></li>
+                            <li><a href="{% url 'services' %}">Mechanical/ Electrical Services</a></li>
+                            <li><a href="{% url 'services' %}">Project/ Construction Management</a></li>
+
+
+
                         </ul>
                     </div>
                     <div class="col-sm-4 col-md-3 item">
@@ -146,27 +149,7 @@
             </div>
         </footer>
     </div>
-    <div id="myDV">
-  <button class="btn">1</button>
-  <button class="btn active">2</button>
-  <button class="btn">3</button>
-  <button class="btn">4</button>
-  <button class="btn">5</button>
-</div>
-<script>// Get the container element
-var btnContainer = document.getElementById("myDIV");
 
-// Get all buttons with class="btn" inside the container
-var btns = btnContainer.getElementsByClassName("btnn");
-
-// Loop through the buttons and add the active class to the current/clicked button
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}</script>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
@@ -212,6 +195,7 @@ for (var i = 0; i < btns.length; i++) {
         	$( this ).parent( 'li' ).addClass( 'active' );
         });*/
     </script>
+
     <script>
     var Shuffle = window.Shuffle;
     var jQuery = window.jQuery;
@@ -229,6 +213,19 @@ for (var i = 0; i < btns.length; i++) {
     }
     });
 
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        var url = window.location;
+        $('.navbar .navbar-nav').find('.active').removeClass('active');
+        $('.navbar .navbar-nav li a').each(function () {
+            if (this.href == url) {
+                $(this).parent().addClass('active');
+            }
+            console.log('great')
+        });
+    });
     </script>
 
 

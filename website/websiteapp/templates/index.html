@@ -124,7 +124,7 @@
 
 
 <section style="background-color: rgba(238, 238, 238)">
-    <div class="container service-snippet" data-aos="fade-right">
+    <div class="container service-snippet" >
         <div class="row">
             <div class="col-md-12">
                 <h2><strong>Our Vision</strong></h2>
@@ -148,12 +148,15 @@
                     </ul>
                 </p>
             </div>
-            <div class="col-md-6 service-images">
-                <a href="#" data-bs-hover-animate="pulse">
-                    <div style="background-image:url({% static '/img/home services.jpg'%});">
-                        <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">Civil/ Structural Engineering Services.</p>
+            <div class="col-md-6 service-images" data-aos="fade-right">
+                {% for service in services %}
+                <a href="{{service.get_absolute_url}}" data-bs-hover-animate="pulse">
+                    <div style="background-image:url({{service.service_image1.url}});">
+                        <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">{{service}}</p>
                     </div>
                 </a>
+                {% endfor %}
+                {% comment %}
                 <a href="#" data-bs-hover-animate="pulse">
                     <div style="background-image:url({% static '/img/home page sevices.jpg'%});">
                         <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Mechanical & Electrical Engineering Services.</p>
@@ -164,6 +167,7 @@
                         <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8)">Project/ Construction Management.</p>
                     </div>
                 </a>
+                {% endcomment %}
             </div>
         </div>
         <!-- <div class="row">
@@ -190,26 +194,30 @@
 
 
 <section>
-    <div class="container projects-snippet" data-aos="fade-up">
+    <div class="container projects-snippet" >
         <div class="intro">
-            <h2 class="text-center">Projects </h2>
+            <h2 class="text-center">Recent Projects </h2>
             <p class="text-center">
-                Broad vision. Careful thought. Computer aided design.
+                Broad Vision. Careful Thought. Computer Aided Design.
             </p>
         </div>
-        <div class="row projects">
+        <div class="row projects" data-aos="fade-up">
             {% for project in projects %}
-            <div class="col-sm-6 item">
+            <div class="col-sm-5 item">
                 <div class="row">
                     <div class="col-md-12 col-lg-5" data-bs-hover-animate="pulse">
                         <a href="{{project.get_absolute_url}}" data-bs-hover-animate="pulse">
-                        <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}">
-                        </a>
+                            {% if project.projectimage_set.all %}
+                            <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
+                            {% else %}
+                            <img class="img-fluid" src="{% static '/img/home/logo-transparent.png' %}" obj.alt="obj.alt"/>
+                            {% endif %}
                     </div>
-                    <div class="col">
-                        <h3 class="name">{{project.title}}</h3>
-                        <p class="description">{{project.summary}}
-                          </p>
+                    <div class="col project-summary-snippet">
+                        <h3><strong>{{project.title}}</strong></h3>
+                        </a>
+                        <small>{{project.summary | truncatechars:210 }}</small>
+
                     </div>
                 </div>
             </div>
@@ -221,7 +229,7 @@
     </div>
 </section>
 <section style="background-color: rgba(238, 238, 238);">
-    <div class="container whoWeAre" data-aos="flip-left">
+    <div class="container whoWeAre" >
         <div class="row">
             <!--<div class="col-md-4 home-second-row-col">
                 <div class="home-second-row-headings" style="background-image:url({% static '/img/home/image home press release.jpg'%});">
@@ -241,7 +249,7 @@
                 <div class="who-we-are-headings" style="background-image:url({% static '/img/home/image004.jpg'%});">
                     <h2  style=" position: relative; top: 20%">Who We Are</h2>
                 </div>
-                <p>
+                <p  data-aos="flip-left">
                     <strong>Project + potential</strong> is an engineering consultancy firm
                     established in February 2003 and registered by the corporate affairs
                     commission in Nigeria.

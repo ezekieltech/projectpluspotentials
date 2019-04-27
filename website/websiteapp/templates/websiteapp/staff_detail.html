@@ -1,13 +1,13 @@
 {% extends "base_generic.html" %} {% load static%}
  {% block carousel %}
  <div class="main-image" style="background-image:url({%static '/img/teamPic.png'%});">
-     
+
 
      <div class="carousel-caption">
          <span class="animated bounce"></span>
          <div class="box animated fadeIn" style="animation-delay: 1s">
              <h2 class="animated bounceInRight" style="animation-delay: 1s">
-                 The {{staff.position}}
+                 Meet <br />{{staff.name}}
              </h2>
          </div>
  </div>
@@ -40,11 +40,11 @@
                 </ol>
                 <div class="col-md-3 project-summary">
                     <img class="img-fluid" src="{{staff.staff_passport.url}}" />
-                    <p><strong>{{staff.position}}</strong><br /><small>BSc, B Eng., Masters</small></p>
+                    <p><strong>{{staff.position}}</strong><br /><small>{{staff.qualification}}</small></p>
                 </div>
                 <div class="col-md-7">
 
-                    <p>
+                    <p style="font-size: 0; line-height: 0;">
                         {{staff.cv | safe }}
                     </p>
                 </div>
