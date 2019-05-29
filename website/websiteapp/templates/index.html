@@ -1,6 +1,16 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
+{% block page_title %} <title> Home | {{block.super}} </title> {% endblock %}
+{% block meta_description %}
+<meta name="description" content="
+We are established to provide quality services
+in  Civil/structural engineering, Mechanical & electrical
+engineering; and Project/Construction Management."/>
+{% endblock %}
+
+
+
 {% block carousel %}
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -127,25 +137,27 @@
     <div class="container service-snippet" >
         <div class="row">
             <div class="col-md-12">
-                <h2><strong>Our Vision</strong></h2>
+                <h2><strong>Who We Are</strong></h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <p>
+                <p  data-aos="flip-left">
+                    <strong>Project + potential</strong> is an engineering consultancy firm
+                    established in February 2003 and registered by the corporate affairs
+                    commission in Nigeria.
+                    <br />
+                    <br />
+                    We were fully registered as an engineering consulting firm by the Council
+                    For Regulation Of Engineering In Nigeria (COREN) in November 2005 with registration
+                    no. EF00355. And also registered with the Association of Consulting Engineering in Nigeria
+                    (ACEN) in January 2014 with membership no. F287.
+                    <br />
+                    <br />
                     Our vision is to produce independent and high-class engineers in our field
                     of engineering and also provide world-class engineering services in our
                     core area of services.
-                    <br />
-                    <br />
-                    <strong>Project + potential</strong> was established to provide
-                    quality-engineering services as follows:
-                    <ul>
-                        <li> Civil/structural engineering services.</li>
-                        <li> Mechanical & electrical engineering services.</li>
-                        <li> Project/Construction Management.</li>
-                    </ul>
                 </p>
             </div>
             <div class="col-md-6 service-images" data-aos="fade-right">
@@ -246,28 +258,27 @@
                 </div>
             </div> -->
             <div class="col-md-6 home-second-row-col">
-                <div class="who-we-are-headings" style="background-image:url({% static '/img/home/image004.jpg'%});">
-                    <h2  style=" position: relative; top: 20%">Who We Are</h2>
+                <div class="who-we-are-headings" style="background-color:blue;">
+                    <h2  style=" position: relative; top: 20%">Our Vision</h2>
                 </div>
-                <p  data-aos="flip-left">
-                    <strong>Project + potential</strong> is an engineering consultancy firm
-                    established in February 2003 and registered by the corporate affairs
-                    commission in Nigeria.
-                    <br />
-                    <br />
-                    We were fully registered as an engineering consulting firm by the Council
-                    For Regulation Of Engineering In Nigeria (COREN) in November 2005 with registration
-                    no. EF00355. And also registered with the Association of Consulting Engineering in Nigeria
-                    (ACEN) in January 2014 with membership no. F287.
-                    <br />
-                    <br />
+                <p>
                     Our vision is to produce independent and high-class engineers in our field
                     of engineering and also provide world-class engineering services in our
                     core area of services.
+                    <br />
+                    <br />
+                    <strong>Project + potential</strong> was established to provide
+                    quality-engineering services as follows:
+                    <ul>
+                        <li> Civil/structural engineering services.</li>
+                        <li> Mechanical & electrical engineering services.</li>
+                        <li> Project/Construction Management.</li>
+                    </ul>
                 </p>
+
             </div>
             <div class="col-md-6 col home-second-row-col">
-                <div class="who-we-are-headings" style="background-image:url({% static '/img/home/image004.jpg'%});">
+                <div class="who-we-are-headings" style="background-color:blue;">
                     <h2>Careers</h2>
                 </div>
                 <p>Join our team. We design and build projects that create economic value and positive impact on the communities around the world.</p>

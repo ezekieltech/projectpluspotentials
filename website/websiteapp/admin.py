@@ -55,14 +55,14 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 # Register the admin class with the associated model
-#admin.site.register(Project, ProjectAdmin)
+admin.site.register(Project, ProjectAdmin)
 
 # Register the Admin classes for Book using the decorator
 
 
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['title', 'client', 'location', 'service']
+#@admin.register(Project)
+# class ProjectAdmin(admin.ModelAdmin):
+#list_display = ['title', 'client', 'location', 'service']
 
 
 @admin.register(Staff)

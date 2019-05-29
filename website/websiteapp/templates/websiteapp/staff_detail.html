@@ -1,4 +1,13 @@
-{% extends "base_generic.html" %} {% load static%}
+{% extends "base_generic.html" %}
+{% load static%}
+
+{% block page_title %}<title> {{staff.name}} - {{staff.position}} | {{block.super}} </title>{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="About the {{staff.position | title}}: {{staff.name | title}}"/>
+{% endblock %}
+
+
  {% block carousel %}
  <div class="main-image" style="background-image:url({%static '/img/teamPic.png'%});">
 
