@@ -5,6 +5,18 @@
 {% load websiteapp_extras %}
 {% load mycounter %}
 
+{% block page_title %}
+<title>{% if project %}{{project.title}} {% elif service %} {{sevice.service_title}}  {% endif %} | {{block.super}}
+</title>{% endblock %}
+
+{% block meta_description %}
+{% if project %}
+<meta name="description" content="{{project.summary |truncatechars:156}}"/>
+{% elif service %}
+<meta name="description" content="{{service.service_title}}"/>
+{% endif %}
+{% endblock %}
+
 
 {% block carousel %}
 
@@ -35,8 +47,10 @@
 <div class='breadcrumbs'>
 {% block breadcrumbs %}
     {{ block.super }}
-    {% if project %}{% breadcrumb "Projects" "projects" %} {% endif %}
-    {% if project %}{% breadcrumb project.title project.get_absolute_url %}{% endif %}
+    {% if project %}
+    {% breadcrumb "Projects" "projects" %}
+    {% breadcrumb project.title project.get_absolute_url %}
+    {% endif %}
 
     {% if service %}{% breadcrumb "Services" "services" %} {% endif %}
     {% if service %}{% breadcrumb service.service_title service.get_absolute_url %}{% endif %}
@@ -62,6 +76,12 @@
 
                 <div {% if project %}class="col-md-9 article"{% endif %} >
                     {% if project %}
+
+
+
+
+
+
                     <h1>{{project.title}}</h1>
                     <div >
                         <p >{{project.project_article | safe}}</p>
@@ -69,6 +89,9 @@
 
 
                     {% if project %}
+
+
+
                     <div class="row lightbox-row">
                         {% for image in project_images1 %} {% if image %}
                         <a href="{{image.image.url}}" data-toggle="lightbox" data-gallery="gallery" class="col-md-4 lightbox">
@@ -82,6 +105,58 @@
                               <img src="{{image.image.url}}" class="img-fluid rounded"/>
                           </a> {% endif %} {% endfor %}
                     </div>
+
+                    <div id="topProjects">
+
+
+                    <div>
+                        <div   style="width:100%; background-color: blue; margin-bottom: 0.25em; text-align: center; border-radius: 0.5em">
+                            <strong>
+                                 <span style="font-size: 28px; color: #DEAE64;">Related Projects</span>
+                             </strong>
+
+                        </div>
+
+
+                        <ul>
+
+                        {% for project in each_project %}
+
+                            <a href="{{ project.get_absolute_url }}"><li>
+                                {{project.title}}
+                            </li></a>
+
+
+                        {% endfor %}
+                        </ul>
+
+
+                        <div  class="pagination primary" style="width:100%; background-color: blue; margin-bottom: 0.25em; color: #DEAE64">
+                        <strong  style="margin: auto; color: #DEAE64">
+                                <span class="step-links">
+                                    {% if each_project.has_previous %}
+                                        <a href="?page=1#topProjects">&laquo; first</a>
+                                        <a href="?page={{ each_project.previous_page_number }}#topProjects">previous</a>
+                                    {% endif %}
+
+                                    <span class="current">
+                                        Page {{ each_project.number }} of {{ each_project.paginator.num_pages }}.
+                                    </span>
+
+                                    {% if each_project.has_next %}
+                                        <a href="?page={{ each_project.next_page_number }}#topProjects">next</a>
+                                        <a href="?page={{ each_project.paginator.num_pages }}#topProjects">last &raquo;</a>
+                                    {% endif %}
+                                </span>
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    </div>
+
+                    
+
                     {% endif %} {% endif %}
 
 
@@ -267,8 +342,8 @@
 
 
                 {% if project %}
-                <div class="col-md-3 project-summary">
-                    <div class="project-summary-list">
+                <div class="col-md-3 project-summary" >
+                    <div class="project-summary-list" >
                         <ul>
                             {%if project.client %}
                             <li><strong>Client</strong><br />{{project.client}}</li>

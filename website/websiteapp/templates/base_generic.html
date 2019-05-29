@@ -1,11 +1,20 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    {% block page_title %}
+    Project Plus Potentials
+    {% endblock %}
+
+    <!--  ensure, amongst other things, that any special characters are displayed correctly -->
+    <meta charset="utf-8"/>
+
+    {% block meta_description %} {% endblock %}
+    <meta name="keywords" content="Civil and Structural Design, , Project Management, Mechanical and Electrical Services"/>
+    <meta name="author" content="Analytics Hub NG" />
+    <meta name="robots" content="index, follow"/>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <title>Project Plus Potentials - Jan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/Footer-Clean.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -31,7 +40,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto text-center" id="myDIV">
-                    <li class="nav-item-top btn active" ><a class="nav-link " href="{% url 'index' %}"><strong>Home</strong></a></li>
+                    <li class="nav-item-top btn active"><a class="nav-link " href="{% url 'index' %}"><strong>Home</strong></a></li>
                     <li class="nav-item-top btn"><a class="nav-link" href="{% url 'about-us' %}"><strong>About Us</strong></a></li>
                     <li class="nav-item-top btn"><a class="nav-link" href="{% url 'projects' %}"><strong>Projects</strong></a></li>
                     <li class="nav-item-top btn"><a class="nav-link" href="{% url 'services' %}"><strong>Our Services</strong></a></li>
@@ -53,41 +62,32 @@
         </nav>
 
 
-        {% block carousel %}
-        {% endblock %}
+        {% block carousel %} {% endblock %}
     </header>
     {% load django_bootstrap_breadcrumbs %}
     <div class='breadcrumbs'>
-        {% block breadcrumbs %}
-            {% breadcrumb "Home" "index" %}
-        {% endblock %}
-        {% block conten %}
-            {% render_breadcrumbs %}
-        {% endblock %}
+        {% block breadcrumbs %} {% breadcrumb "Home" "index" %} {% endblock %} {% block conten %} {% render_breadcrumbs %} {% endblock %}
     </div>
-    {% block content %}
-    {% block sidebar %}
+    {% block content %} {% block sidebar %}
     <ol class="col-md-2 side-menu">
         <li class="nav-item"><a class="nav-link active" href="{% url 'about-us'%}">About Us</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'projects'%}">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'services'%}">Our Services</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'about-us'%}">Our Team</a></li>
     </ol>
-    {% endblock %}
-
-    {% endblock %}
+    {% endblock %} {% endblock %}
 
 
 
 
 
-    <div class="contact-clean" id='contact' >
+    <div class="contact-clean" id='contact'>
         <form action="{% url 'email' %}" method="post" data-aos="zoom-in">
             {% csrf_token %}
             <h2 class="text-center">Contact us</h2> {% if '/success' in request.path %}
             <p style="color: #008000; font-size: 1.5vw;">
                 Thank you for your message. We will get back to you within 24hrs.
-                <a href='{% url ' index ' %}'> <small>Click here to see home page.</small></a>
+                <a href='{% url 'index' %}'> <small>Click here to see home page.</small></a>
             </p>
             {% endif %}
             <div class="form-group">
@@ -152,14 +152,14 @@
 
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({
-        offset: 120,
-        duration: 1500,
-    });
-  </script>
+    <script>
+        AOS.init({
+            offset: 120,
+            duration: 1500,
+        });
+    </script>
 
-  <script src="https://unpkg.com/shufflejs@5"></script>
+    <script src="{% static 'js/shuffle.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
@@ -168,64 +168,65 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
     <script src="{% static '/js/Simple-Slider.js' %}">
     </script>
+    <script src="{% static 'js/addRemove.js' %}"></script>
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
             event.preventDefault();
             $(this).ekkoLightbox();
         });
 
-/*
-        var btnContainer = document.getElementById("navbarSupportedContent");
-        console.log('got here first');
-        var btns = btnContainer.getElementsByClassName("nav-item-top");
+        /*
+                var btnContainer = document.getElementById("navbarSupportedContent");
+                console.log('got here first');
+                var btns = btnContainer.getElementsByClassName("nav-item-top");
 
-        // Loop through the buttons and add the active class to the current/clicked button
-        for (var i = 0; i < btns.length; i++) {
-          btns[i].addEventListener("click", function() {
-              console.log('got here');
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-            console.log('got here too');
-        });}
+                // Loop through the buttons and add the active class to the current/clicked button
+                for (var i = 0; i < btns.length; i++) {
+                  btns[i].addEventListener("click", function() {
+                      console.log('got here');
+                    var current = document.getElementsByClassName("active");
+                    current[0].className = current[0].className.replace(" active", "");
+                    this.className += " active";
+                    console.log('got here too');
+                });}
 
-        $( '#testin a' ).on( 'click', function () {
-            console.log('got here jquery');
-        	$( '#testing' ).find( 'li.active' ).removeClass( 'active' );
-        	$( this ).parent( 'li' ).addClass( 'active' );
-        });*/
+                $( '#testin a' ).on( 'click', function () {
+                    console.log('got here jquery');
+                	$( '#testing' ).find( 'li.active' ).removeClass( 'active' );
+                	$( this ).parent( 'li' ).addClass( 'active' );
+                });*/
     </script>
 
-    <script>
-    var Shuffle = window.Shuffle;
-    var jQuery = window.jQuery;
-
-    var myShuffle = new Shuffle(document.querySelector('.my-shuffle'), {
-    itemSelector: '.image-item',
-    sizer: '.my-sizer-element',
-    buffer: 1,
-    });
-
-    jQuery('input[name="shuffle-filter"]').on('change', function (evt) {
-    var input = evt.currentTarget;
-    if (input.checked) {
-    myShuffle.filter(input.value);
-    }
-    });
-
-    </script>
 
     <script>
-    $(document).ready(function () {
-        var url = window.location;
-        $('.navbar .navbar-nav').find('.active').removeClass('active');
-        $('.navbar .navbar-nav li a').each(function () {
-            if (this.href == url) {
-                $(this).parent().addClass('active');
-            }
-            console.log('great')
+        var Shuffle = window.Shuffle;
+        var jQuery = window.jQuery;
+
+        var myShuffle = new Shuffle(document.querySelector('.my-shuffle'), {
+            itemSelector: '.image-item',
+            sizer: '.my-sizer-element',
+            buffer: 1,
         });
-    });
+
+        jQuery('input[name="shuffle-filter"]').on('change', function(evt) {
+            var input = evt.currentTarget;
+            if (input.checked) {
+                myShuffle.filter(input.value);
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var url = window.location;
+            $('.navbar .navbar-nav').find('.active').removeClass('active');
+            $('.navbar .navbar-nav li a').each(function() {
+                if (this.href == url) {
+                    $(this).parent().addClass('active');
+                }
+                console.log('great')
+            });
+        });
     </script>
 
 
