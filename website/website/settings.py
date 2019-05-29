@@ -30,7 +30,7 @@ SECRET_KEY = 'dh_heka-ar1ggpu!m5vb!$xb+t$=6(5g7_h4om56os4&go)bpn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['edb55cea.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['6b785ae5.ngrok.io', '127.0.0.1']
 
 
 # Application definition
@@ -135,4 +135,12 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#EMAIL_BACKEND = 'sgbackend.SendGridBackend'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS = True

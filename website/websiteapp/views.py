@@ -6,6 +6,13 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ContactForm
+from django.core.paginator import Paginator
+
+# using SendGrid's Python Library
+# https://github.com/sendgrid/sendgrid-python
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 from .models import Project, Press, Staff, Home, Service, Industry, Department
 
@@ -38,7 +45,7 @@ def index(request):
 class ProjectListView(generic.ListView):
     model = Project
     model2 = Industry
-    paginate_by = 15
+    paginate_by = 8
     template_name = 'list_page.html'
 
     def get_context_data(self, **kwargs):
@@ -53,18 +60,18 @@ class ProjectListView(generic.ListView):
 
 class ProjectDetailView(generic.DetailView):
     model = Project
+    #paginate_by = 1
     template_name = 'detail_page.html'
-    #pk = Project.id
-    # print(project.projectimage_set.all.0.image.url)
-    # def get_context_data(self, **kwargs):
-    #    context = super(ProjectDetailView, self).get_context_data(**kwargs)
-    #    print(Project.id)
-    #    project = Project.objects.get(pk=pk)
-    #    image_list = project.images.all()
-    #    context['main_image'] = image_list[0]
-    #    context['project_images1'] = image_list[1:4]
-    #    context['project_images2'] = image_list[4:]
-    #    return context
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        project_service = self.get_object().service
+        project_list = Project.objects.filter(
+            service__service_title__icontains=project_service)
+        paginator = Paginator(project_list, 5)
+        page = self.request.GET.get('page')
+        context['each_project'] = paginator.get_page(page)
+        return context
 
 
 class ServiceListView(generic.ListView):
@@ -146,7 +153,9 @@ def emailView(request):
             from_email = form['from_email']
             message = form['message']
             try:
-                send_mail(subject, message, from_email, ['admin@example.com'])
+                #sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                send_mail(subject, message, from_email, ['admin@projectpluspotentials.com'])
+                print('###I got here')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('success')

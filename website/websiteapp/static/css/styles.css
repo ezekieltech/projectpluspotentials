@@ -890,6 +890,7 @@ header span::after {
   overflow: hidden;
 }
 
+
 /* Make vertical gutters the same as the horizontal ones */
 .image-item {
   margin-bottom: 30px;
@@ -940,3 +941,9 @@ header span::after {
   color: white;
 }
 */
+
+/*animation for pagination on project list page*/
+.pagination {
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
