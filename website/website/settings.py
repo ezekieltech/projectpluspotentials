@@ -152,8 +152,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 #EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = get_env_variable('SENDGRIP_P+P_EMAILHOST')
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_USER = get_env_variable('SENDGRIP_P+P_EMAILHOSTUSER')
 EMAIL_HOST_PASSWORD = get_env_variable('SENDGRIP_PROJECTPOTENTIALS_APIKEY')
 EMAIL_USE_TLS = True
