@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.core.exceptions import ImproperlyConfigured
+
+
+def get_env_variable(name):
+    '''Gets the environment variable or throws ImproperlyConfigured
+        exception
+        : rtype: object
+    '''
+    try:
+        return os.environ[name]
+        except KeyError:
+            raise ImproperlyConfigured(‘Environment variable “% s” not found.’ % name)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +38,7 @@ MEDIA_URL = "/media/"
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dh_heka-ar1ggpu!m5vb!$xb+t$=6(5g7_h4om56os4&go)bpn'
+SECRET_KEY = get_env_variable('DJANGO_P+P_SECRETKEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -142,5 +155,5 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = get_env_variable('SENDGRIP_PROJECTPOTENTIALS_APIKEY')
 EMAIL_USE_TLS = True

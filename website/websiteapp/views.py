@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ContactForm
 from django.core.paginator import Paginator
+from infinite_scroll_pagination import paginator
 
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python

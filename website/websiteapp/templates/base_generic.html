@@ -169,6 +169,8 @@
     <script src="{% static '/js/Simple-Slider.js' %}">
     </script>
     <script src="{% static 'js/addRemove.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
             event.preventDefault();
@@ -229,6 +231,10 @@
         });
     </script>
 
+    <script>
+    var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0]
+    </script>
 
 
 

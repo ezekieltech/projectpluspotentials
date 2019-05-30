@@ -79,7 +79,7 @@
               <div class="row my-shuffle infinite-container">
                   {% for project in project_list %}
 
-                <figure class="image-item col-3" data-groups='["{{project.service}}"]' >
+                <figure class="infinite-item image-item col-3" data-groups='["{{project.service}}"]' >
                     <a href="{% url 'project-detail' project.id %}"  >
                   <div class="aspect aspect--16x9">
 
@@ -111,17 +111,7 @@
                     <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
                 {% endif %}
 
-                <script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-  </script>
+
 
 
             </div>
@@ -257,4 +247,7 @@
       <p>There are no projects right now.</p>
     {% endif %}
 -->
+
+
+
 {% endblock %}
