@@ -268,6 +268,11 @@
   color:inherit;
 }
 
+.navbar-light .navbar-nav .active>.nav-link {
+    color: blue;
+    text-decoration: underline gold;
+}
+
 /*project horizontal*/
 
 @media (max-width:767px) {
@@ -406,11 +411,16 @@
 /*General*/
 html, body {
   max-width: 100%;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 body, p, h1, h2, h3, a {
     font-family: 'Century Gothic';
+}
+
+h2, h2, a {
+    color: blue;
+    font-weight: bold
 }
 
 .navbar, body {
@@ -426,6 +436,7 @@ body, p, h1, h2, h3, a {
     font-size: 1.25em;
 }
 
+
 .container {
     max-width: 85%;
     margin: auto;
@@ -433,7 +444,7 @@ body, p, h1, h2, h3, a {
 }
 
 a:hover {
-    color: #fff;
+    color: gold;
     text-shadow:
     -1px -1px 0 #DEAE64,
     1px -1px 0 #DEAE64,
@@ -455,7 +466,7 @@ a:hover {
 
 /******** Index Page ********/
 .project-summary-snippet {
-    padding: 0;
+    padding: 5px 0 0 15px;
 }
 
 .project-summary-snippet h3{
@@ -476,7 +487,7 @@ a:hover {
   height:9.375em;
   width:40%;
   margin:auto 0.3em;
-  display:inline-block;
+  display:inline-grid;
   margin-top:0.625em;
 }
 
@@ -494,7 +505,9 @@ a:hover {
 .projects-snippet img {
     /*margin: 0.625em 0; */
     border-radius: 0.938em;
+    height: 12em;
 }
+
 
 .projects-snippet .projects {
     margin-top: 1.25em;
@@ -602,13 +615,16 @@ a:hover {
     /*padding-top: 1.5em;*/
 }
 
-.projects-horizontal h2 {
+/*.projects-horizontal h2 {
   font-weight:bold;
   color:inherit;
+}*/
+
+.staff {
+    text-align: center;
 }
 
 .staff img{
-    width: 100%;
     height: 12em;
     border-radius: 0.5em;
 }
@@ -824,7 +840,7 @@ header span::after {
   height: 30px;
   width: 4px;
   border-radius: 2px;
-  background: #fff;
+  background: blue;
 }
 
 header span::before {
@@ -857,25 +873,82 @@ header span::after {
 
 
 /*testing*/
-.carousel-item {
-    height: 100vh;
+@media (min-width:768px) {
+    .carousel-item {
+        height: 100vh;
+    }
 }
 
 @media (max-width:767px) {
     .carousel-item {
-        height: 0;
+        /*height: 100vh;*/
+        position: relative;
+        top: 70px;
+    }
+    .carousel-caption {
+        position: absolute;
+        right: 15%;
+        bottom: 25%;
+        left: 15%;
+        z-index: 10;
+        padding-bottom: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .carousel-caption h2 {
+    font-size: 2rem;
+    }
+
+
+    .carousel-control-next, .carousel-control-prev {
+    position: absolute;
+    top: 50%;
+    bottom: 5%;
+    }
+
+    header span.bounce {
+    position: absolute;
+    margin: auto;
+    right: 0;
+    top: 80px;
+    left: 0;
+    bottom: 6.25em;
+    height: 0.250em;
+    width: 0.250em;
+    border-radius: 0.125;
+    background: #fff;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    }
+
+    .main-image {
+        margin-top: 8em;
+    }
+
+    header span::before, header span::after {
+    background: none;
+    }
+
+    .projects-snippet, .projects-snippet a {
+        text-align: center;
     }
 }
 
+@media (min-width:768px) {
+    .carousel-caption {
+        padding-bottom: 200px;
+    }
 
-.carousel-caption {
-    padding-bottom: 200px;
+    .carousel-caption h2 {
+    font-size: 45px;
+    }
 }
 
 .carousel-caption h2{
-    font-size: 45px;
+    
     text-transform: uppercase;
-    color: #3e3c48;
+    /*color: #3e3c48;*/
     font-weight: bold;
 }
 .carousel-caption .box{
@@ -932,6 +1005,7 @@ header span::after {
   max-width: none;
   height: 100%;
   object-fit: cover;
+  border-radius: 0.938em;
 }
 
 
@@ -946,4 +1020,11 @@ header span::after {
 .pagination {
     animation-duration: 5s;
     animation-iteration-count: infinite;
+}
+
+/*sevice page*/
+.service-projects {
+    min-height:290px;
+    max-width:550px;
+    margin:5px 0 0 20px;
 }

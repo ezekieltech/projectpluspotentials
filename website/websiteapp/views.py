@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from .forms import ContactForm
 from django.core.paginator import Paginator
 from infinite_scroll_pagination import paginator
+from infinite_scroll_pagination import serializers
 
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python
@@ -46,7 +47,7 @@ def index(request):
 class ProjectListView(generic.ListView):
     model = Project
     model2 = Industry
-    paginate_by = 8
+    paginate_by = 50
     template_name = 'list_page.html'
 
     def get_context_data(self, **kwargs):
@@ -155,7 +156,8 @@ def emailView(request):
             message = form['message']
             try:
                 #sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                send_mail(subject, message, from_email, ['admin@projectpluspotentials.com'])
+                send_mail(subject, message, from_email,
+                          ['admin@projectpluspotentials.com'])
                 print('###I got here')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')

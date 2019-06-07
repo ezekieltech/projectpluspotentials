@@ -6,7 +6,7 @@
 {% load mycounter %}
 
 {% block page_title %}
-<title>{% if project %}{{project.title}} {% elif service %} {{sevice.service_title}}  {% endif %} | {{block.super}}
+<title>{% if project %}{{project.title}} {% else %} {{service.service_title}}  {% endif %} | {{block.super}}
 </title>{% endblock %}
 
 {% block meta_description %}
@@ -122,7 +122,7 @@
 
                         {% for project in each_project %}
 
-                            <a href="{{ project.get_absolute_url }}"><li>
+                            <a href="{{ project.get_absolute_url }}" style="color: black;"><li>
                                 {{project.title}}
                             </li></a>
 
@@ -155,7 +155,7 @@
 
                     </div>
 
-                    
+
 
                     {% endif %} {% endif %}
 
@@ -190,9 +190,13 @@
                         <div class="col-sm-6 item ">
                             <div class="row " style="margin-bottom: 1.625em">
                                 <div class="col-md-12 col-lg-5 staff" data-bs-hover-animate="pulse">
+                                    {% if project.projectimage_set.all.first.image %}
                                     <a href="{{project.get_absolute_url}}">
                                         <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" />
                                     </a>
+                                    {% else %}
+                                    <img class="img-fluid" src="{% static '/img/home/logo-transparent.png' %}"/>
+                                    {% endif %}
                                 </div>
                                 <div class="col" style="padding-left: 0">
                                     <a href="{{project.get_absolute_url}}" style="color:#000">
@@ -202,7 +206,7 @@
                                     </a>
 
                                     <p class="description" >
-                                        {{project.summary}}
+                                        {{project.summary | truncatechars:180}}
 
                                     </p>
                                 </div>
@@ -353,8 +357,6 @@
                             <li><strong>Service</strong> <br />{{project.service}}</li>
                             {% endif %} {%if project.cost_estimate %}
                             <li><strong>Cost Estimate</strong> <br />{{project.cost_estimate}}</li>
-                            {% endif %} {%if project.project_date %}
-                            <li><strong>Date</strong> <br />{{project.project_date}} </li>
                             {% endif %}
                         </ul>
 

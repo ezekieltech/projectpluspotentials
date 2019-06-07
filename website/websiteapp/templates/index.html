@@ -22,7 +22,7 @@ engineering; and Project/Construction Management."/>
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img class="item d-block w-100" src="{% static '/img/image009.jpg' %}" alt="Second slide">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-md-block">
                 <div class="box animated fadeIn" style="animation-delay: 1s">
                 <h2 class="animated slideInDown" style="animation-delay: 1s">Civil Engineering Services</h2>
                 {% comment %}
@@ -33,7 +33,7 @@ engineering; and Project/Construction Management."/>
         </div>
         <div class="carousel-item">
             <img class="item d-block w-100" src="{% static '/img/image013.png' %}" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-md-block">
                 <div class="box animated fadeIn" style="animation-delay: 1s">
                 <h2 class="animated bounceInRight" style="animation-delay: 1s">Electrical Engineering Services</h2>
                 {% comment %}
@@ -44,7 +44,7 @@ engineering; and Project/Construction Management."/>
         </div>
         <div class="carousel-item">
             <img class=" item d-block w-100" src="{% static '/img/image011.png' %}" alt="Third slide">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-md-block">
                 <div class="box animated fadeIn" style="animation-delay: 1s">
                 <h2 class="animated zoomIn" style="animation-delay: 1s">Mechanical Engineering Services</h2>
                 {% comment %}
@@ -143,7 +143,7 @@ engineering; and Project/Construction Management."/>
 
         <div class="row">
             <div class="col-md-6">
-                <p  data-aos="flip-left">
+                <p  data-aos="slide-up">
                     <strong>Project + potential</strong> is an engineering consultancy firm
                     established in February 2003 and registered by the corporate affairs
                     commission in Nigeria.
@@ -163,8 +163,10 @@ engineering; and Project/Construction Management."/>
             <div class="col-md-6 service-images" data-aos="fade-right">
                 {% for service in services %}
                 <a href="{{service.get_absolute_url}}" data-bs-hover-animate="pulse">
-                    <div style="background-image:url({{service.service_image1.url}});">
+                    <div style="background-image:url({{service.service_image1.url}}); background-size: cover">
+
                         <p style="color:rgb(141,198,255);background-color:rgba(132,125,125,0.8);">{{service}}</p>
+
                     </div>
                 </a>
                 {% endfor %}
@@ -217,7 +219,7 @@ engineering; and Project/Construction Management."/>
             {% for project in projects %}
             <div class="col-sm-5 item">
                 <div class="row">
-                    <div class="col-md-12 col-lg-5" data-bs-hover-animate="pulse">
+                    <div class="col-md-12 col-lg-5" style="padding-right: 0"data-bs-hover-animate="pulse">
                         <a href="{{project.get_absolute_url}}" data-bs-hover-animate="pulse">
                             {% if project.projectimage_set.all %}
                             <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>

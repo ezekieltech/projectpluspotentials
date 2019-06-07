@@ -1,5 +1,5 @@
 <html>
-
+{% load static%}
 <head>
     {% block page_title %}
     Project Plus Potentials
@@ -14,6 +14,7 @@
     <meta name="robots" content="index, follow"/>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/png" href="{% static '/img/home/logo-favicon.png' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/Footer-Clean.css">
@@ -26,6 +27,15 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50245492-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50245492-3');
+</script>
 
 
 </head>
@@ -50,15 +60,20 @@
             </div>
 
 
-            <a class="navbar-brand" href="#">
+            <div class="navbar-brand" href="#">
                     <img class="logo animated flipInY" style="height: 100px" src="{% static '/img/home/logo-transparent.png' %}"/>
                     <small>
-                        <strong><br />Call Us: 08071890230, 08071890226, 08023353643;
+                        <strong><br />
+                            <a href="tel:+2348023353643" target="_blank">
+                                Call Us: 08071890230, 08071890226, 08023353643;
+                            </a>
                             <br />
-                            Email: info@projectpluspotentials.com
+                        <a href="mailto:info@projectpluspotentials.com" target="_blank">
+                             Email: info@projectpluspotentials.com
+                        </a>
                         </strong>
                     </small>
-                </a>
+                </div>
         </nav>
 
 
@@ -115,9 +130,9 @@
                         <h3>Services</h3>
                         <ul>
 
-                            <li><a href="{% url 'services' %}">Civil/ Construction Services</a></li>
-                            <li><a href="{% url 'services' %}">Mechanical/ Electrical Services</a></li>
-                            <li><a href="{% url 'services' %}">Project/ Construction Management</a></li>
+                            <li><a href="{% url 'service-detail' '2' %}">Civil/ Construction Services</a></li>
+                            <li><a href="{% url 'service-detail' '3' %}">Mechanical/ Electrical Services</a></li>
+                            <li><a href="{% url 'service-detail' '1' %}">Project/ Construction Management</a></li>
 
 
 
@@ -141,9 +156,21 @@
 
                         </ul>
                     </div>
-                    <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                    <div class="col-lg-3 item social">
+                        <a href="https://www.facebook.com/Project-Plus-Potentials-368035593838003" target="_blank">
+                            <i class="icon ion-social-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/pluspotentials" target="_blank">
+                            <i class="icon ion-social-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="icon ion-social-linkedin"></i>
+                        </a>
+                        <a href="#">
+                            <i class="icon ion-social-instagram"></i>
+                        </a>
                         <p class="copyright">Project Plus Potentials © 2019</p>
-                        <p class="copyright">Created By Analytics Hub © 2019</p>
+                        <p class="copyright"><a href="https://analyticshubng.tech" target='blank'>Created By Analytics Hub © 2019</a></p>
                     </div>
                 </div>
             </div>

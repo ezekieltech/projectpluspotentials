@@ -1,6 +1,15 @@
 {% extends "base_generic.html" %}
 
 {% load static%}
+
+{% block page_title %}<title>{% if project_list %} Projects{% else %} Services{% endif %} | {{block.super}} </title>{% endblock %}
+{% block meta_description %}
+<meta name="description" content="
+Our vision is to produce independent, high-class engineers in our field of
+engineering as well as world-class engineering services in our
+core area of services."/>
+{% endblock %}
+
 {% load websiteapp_extras %}
 {% load mycounter %}
 
@@ -46,7 +55,7 @@
         <div class="row">
 
             {% if project_list %}
-            <div class="" style="padding-left:10px">
+            <div class="" style="padding-left:10px; width: 100%">
               <h1 class="mb-3">You Dream it. We Design and Execute.</h1>
               <p>
                   Your projects are our pride. Every project is designed with
@@ -64,7 +73,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col">
-                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
                       <label class="btn btn-outline-primary active">
                         <input type="radio" name="shuffle-filter" value="all" checked="checked"/>All
                       </label>
@@ -79,41 +88,29 @@
               <div class="row my-shuffle infinite-container">
                   {% for project in project_list %}
 
-                <figure class="infinite-item image-item col-3" data-groups='["{{project.service}}"]' >
+                <figure class="infinite-item image-item col-sm-3" data-groups='["{{project.service}}"]' >
                     <a href="{% url 'project-detail' project.id %}"  >
                   <div class="aspect aspect--16x9">
 
                     <div class="aspect__inner" data-bs-hover-animate="pulse" data-aos="fade-right">
                         {% if project.projectimage_set.all.first.image %}
-                        <img src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
+                        <img class="img-fluid" src="{{project.projectimage_set.all.first.image.url}}" obj.alt="obj.alt"/>
                         {% else %}
-                        <img src="{% static '/img/home/logo-transparent.png' %}"/>
+                        <img class="img-fluid" src="{% static '/img/home/logo-transparent.png' %}"/>
                         {% endif %}
                     </div>
 
                   </div>
                   <figcaption data-bs-hover-animate="pulse">
                       <small>
-                          <strong>{{project.title | truncatechars:35}}</strong><br />
-                         <em>{{project.summary | truncatechars:65}}</em>
+                          <strong>{{project.title | truncatechars:33}}</strong><br />
+                         <em>{{project.summary | truncatechars:60}}</em>
                       </small>
                   </figcaption>
                   </a>
                 </figure>
-
                 {% endfor %}
                 </div>
-                <div class="loading" style="display: none;">
-                    Loading...
-                </div>
-
-                {% if page_obj.has_next %}
-                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
-                {% endif %}
-
-
-
-
             </div>
             {% endif %}
 
@@ -137,12 +134,12 @@
                                 <strong>{{service}}</strong>
                             </h4>
                             <small class='text-center' {% if forloop.first %} style="display:none" {% else %}style="display:block"{% endif %}>
-                            Click here to see recent {{service}} projects
+                            <a href=""></a>Click here to see recent {{service}} projects
                             </small>
                         </button>
             <div {% if forloop.first %} class="panel-collapse in" {% else %} class="panel-collapse collapse" {% endif %} id={{targetid|slice:"1:"}} data-aos="fade-right">
                 {% endwith %}
-                <a href='#'><small class='text-center'><strong>Click here to see ALL {{service}} projects</strong></small></a>
+                <a href='{% url 'service-detail' service.id %}'><small class='text-center'><strong>Click here to see ALL {{service}} projects</strong></small></a>
 
                 <div class="row projects" style="margin: 15px auto">
                     {% if count_civil_projects %}
@@ -182,7 +179,7 @@
                     {% endif %}
 
 
-                        <div style="max-height:215px; max-width:550px; margin:5px 0 0 20px;">
+                        <div class="service-projects" style="">
                             <h6><strong>{{service}}</strong></h6>
                             <small>
                             <ul>
@@ -190,7 +187,7 @@
                                 {% if project.service == service %}
 
                                 <li>
-                                    <a><strong> {{project.title}}:</strong>{{project.summary}}</a>
+                                    <a><strong> {{project.title}}: </strong>{{project.summary| truncatechars:120}}</a>
                                 </li>
 
                             {% endif %}

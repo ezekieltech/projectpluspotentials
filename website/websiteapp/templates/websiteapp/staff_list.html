@@ -18,12 +18,15 @@ core area of services."/>
 <div class="main-image" style= "background-image:url({%static '/img/teamPic.png'%});">
     <div class="carousel-caption">
         <span class="animated bounce"></span>
+        {% comment %}
         <div class="box animated fadeIn" style="animation-delay: 1s">
             <h2 class="animated bounceInRight" style="animation-delay: 1s">
             About Us
             </h2>
         </div>
+        {% endcomment %}
     </div>
+
 </div>
 {% endblock %}
 
@@ -109,7 +112,7 @@ core area of services."/>
                 <div class="row " style="margin-bottom: 1.625em">
                     <div class="col-md-12 col-lg-5 staff" data-bs-hover-animate="pulse">
                         <a href="{{staff.get_absolute_url}}">
-                            <img class="img-fluid" src="{{staff.staff_passport.url}}" />
+                            <img class="img-fluid" src="{{staff.staff_passport.url}}" style="max-height: 100%; max-width: 100%" />
                         </a>
                     </div>
                     <div class="col">
