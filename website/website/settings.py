@@ -46,7 +46,7 @@ SECRET_KEY = get_env_variable('DJANGO_P+P_SECRETKEY')
 DEBUG = True
 
 #ALLOWED_HOSTS = ['project', '127.0.0.1']
-ALLOWED_HOSTS = ['.projectpluspotentials.com', '68.183.70.49']
+ALLOWED_HOSTS = ['.projectpluspotentials.com', '46.101.184.171']
 
 # Application definition
 
@@ -154,6 +154,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
