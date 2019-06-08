@@ -128,7 +128,7 @@ class Project(models.Model):
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='projectimages/gallery/',
-                              default='serviceimages/None/no-img.jpg')
+                              default='img/home/logo-transparent.png')
 
 
 class Service(models.Model):
@@ -143,7 +143,7 @@ class Service(models.Model):
     service_date = models.DateField(null=True, blank=True)
     service_image1 = models.ImageField(
         upload_to='serviceimages/',
-        default='serviceimages/None/no-img.jpg')
+        null=True, blank=True)
 
     # Metadata
 

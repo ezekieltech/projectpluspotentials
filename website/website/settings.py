@@ -45,8 +45,8 @@ SECRET_KEY = get_env_variable('DJANGO_P+P_SECRETKEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e2556373.ngrok.io', '127.0.0.1']
-
+#ALLOWED_HOSTS = ['project', '127.0.0.1']
+ALLOWED_HOSTS = ['.projectpluspotentials.com', '68.183.70.49']
 
 # Application definition
 
@@ -96,11 +96,20 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+with open('C:\my_songs\Stuffs On Git\pplusp_db_password.txt') as f:
+    pplusp_password = f.read().strip()
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ppluspdb',
+        'USER': 'postgres',
+        'PASSWORD': pplusp_password,
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
