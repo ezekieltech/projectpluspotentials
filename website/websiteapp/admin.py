@@ -17,11 +17,6 @@ class ProjectImageInline(admin.TabularInline):
     max_num = 7
 
 
-class IndustryInline(admin.TabularInline):
-    model = Industry
-    #radio_fields = {"project": admin.VERTICAL}
-
-
 class DepartmentInline(admin.TabularInline):
     model = Department
     #radio_fields = {"project": admin.VERTICAL}
@@ -32,18 +27,10 @@ class DepartmentAdmin(admin.ModelAdmin):
     model = Department
 
 
-@admin.register(Industry)
-class IndustryAdmin(admin.ModelAdmin):
-    model = Industry
-#    radio_fields = {"project": admin.VERTICAL}
-    #search_fields = {'project', 'industry'}
-
-
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'client', 'project_article')
-    #search_fields = ['project__industry']
-    #radio_fields = {"industry": admin.VERTICAL}
     inlines = [ProjectImageInline]
+    exclude = ['industry']
 
 
 #@admin.register(ProjectDetailContent)
@@ -56,9 +43,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
 # Register the admin class with the associated model
 admin.site.register(Project, ProjectAdmin)
-
-# Register the Admin classes for Book using the decorator
-
 
 #@admin.register(Project)
 # class ProjectAdmin(admin.ModelAdmin):

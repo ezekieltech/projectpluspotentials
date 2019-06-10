@@ -46,7 +46,7 @@ def index(request):
 
 class ProjectListView(generic.ListView):
     model = Project
-    model2 = Industry
+    #model2 = Industry
     paginate_by = 50
     template_name = 'list_page.html'
 
@@ -54,7 +54,7 @@ class ProjectListView(generic.ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['industry_list'] = Industry.objects.all()
+        #context['industry_list'] = Industry.objects.all()
         context['service_list2'] = Service.objects.all()
 
         return context

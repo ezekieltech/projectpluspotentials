@@ -147,7 +147,12 @@ core area of services."/>
                             {% if project.service == service%}
                                         <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
                                             <a href="{% url 'project-detail' project.id %}" >
-                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain'
+                                                {% if project.projectimage_set.all.first.image %}
+                                                src="{{project.projectimage_set.all.first.image.url}}"
+                                                {% else %}
+                                                src="{% static '/img/home/logo-transparent.png' %}"
+                                                {% endif %}/>
                                             </a>
                                         </div>
                             {% endif %}
@@ -160,7 +165,12 @@ core area of services."/>
                             {% if project.service == service%}
                                         <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
                                             <a href="{% url 'project-detail' project.id %}" >
-                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain'
+                                                {% if project.projectimage_set.all.first.image %}
+                                                src="{{project.projectimage_set.all.first.image.url}}"
+                                                {% else %}
+                                                src="{% static '/img/home/logo-transparent.png' %}"
+                                                {% endif %}/>
                                             </a>
                                         </div>
                             {% endif %}
@@ -171,7 +181,12 @@ core area of services."/>
                             {% if project.service == service%}
                                         <div class="col-md-12 col-lg-5" style="height: 224.5px; max-width: 300px; padding:0; margin:0; border-style:solid; border-color: #deae64e6; border-width: 5px; ">
                                             <a href="{% url 'project-detail' project.id %}" >
-                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain' src="{{project.projectimage_set.all.first.image.url}}" />
+                                                <img class="img-fluid" style='max-height:215px; width: 100%; object-fit: contain'
+                                                {% if project.projectimage_set.all.first.image %}
+                                                src="{{project.projectimage_set.all.first.image.url}}"
+                                                {% else %}
+                                                src="{% static '/img/home/logo-transparent.png' %}"
+                                                {% endif %}/>
                                             </a>
                                         </div>
                             {% endif %}
