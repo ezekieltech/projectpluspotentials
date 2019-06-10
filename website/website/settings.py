@@ -20,7 +20,7 @@ def get_env_variable(name):
         : rtype: object
     '''
     try:
-        print('This is the problem' + ' #' + os.environ[name])
+        # print('This is the problem' + ' #' + os.environ[name])
         return os.environ[name]
     except KeyError:
         raise ImproperlyConfigured('Environment variable "% s" not found.' % name)
@@ -46,7 +46,7 @@ SECRET_KEY = get_env_variable('DJANGO_P+P_SECRETKEY')
 DEBUG = True
 
 #ALLOWED_HOSTS = ['project', '127.0.0.1']
-ALLOWED_HOSTS = ['.projectpluspotentials.com', '46.101.184.171']
+ALLOWED_HOSTS = ['.projectpluspotentials.com', '46.101.184.171', '127.0.0.1']
 
 # Application definition
 
@@ -102,8 +102,8 @@ with open('C:\my_songs\Stuffs On Git\pplusp_db_password.txt') as f:
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ppluspdb',
         'USER': 'postgres',

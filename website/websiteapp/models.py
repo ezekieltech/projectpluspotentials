@@ -50,7 +50,7 @@ class Industry(models.Model):
 
 
 class Department(models.Model):
-    department = models.CharField(max_length=200, default='Civil Design Team')
+    department = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         ordering = ["department"]
